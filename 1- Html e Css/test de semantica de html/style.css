@@ -1,0 +1,36 @@
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+@media  screen and (max-width:700px) {
+nav ul {
+    flex-direction: column;
+}    
+}
+nav ul{
+width: 100%;
+}
+@media screen and (max-width: 2500px) {
+body {
+    background-color: rgb(70, 216, 87);
+}    
+}
+@media screen and (max-width:992px) {
+body {
+    background-color: blueviolet;
+}    
+}
+@media screen and (max-width:768px)  {
+body { background-color: rgb(207, 12, 12);
+ }
+}
+@media screen and (max-width:600px) {
+body { background-color: blue;
+}    
+}
+
+
+ 
+    
+ 

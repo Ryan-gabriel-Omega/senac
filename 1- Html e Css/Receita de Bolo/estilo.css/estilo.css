@@ -1,0 +1,74 @@
+body 
+{
+
+    background-color: rgb(245, 223, 168);
+
+
+}
+
+h1
+{
+    text-align: center;
+    color: brown;
+    
+
+}
+
+
+
+.ingredientes
+{
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(25, 183, 204);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: medium;
+    margin: 25px;
+    background-color: aquamarine;
+    padding: 20px;
+}
+
+.ingredientes li
+{
+    color: rgb(5, 1, 255)
+
+
+}
+
+
+.modo-de-preparo
+{
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(25, 183, 204);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: medium;
+    margin: 25px;
+    color: rgb(5, 1, 255);
+    background-color: aquamarine;
+    padding: 25px;
+    
+    
+} 
+
+    
+
+#observacao
+{
+    border-style: dashed;
+    border-width: 2px;
+    border-color: rgb(25, 183, 204);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: medium;
+    margin: 25px;
+    color: brown;
+    background-color: azure;
+    padding: 25px;
+
+}
+
+
+
+
+
+

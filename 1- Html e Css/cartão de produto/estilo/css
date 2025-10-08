@@ -1,0 +1,89 @@
+body
+{
+    background-color: rgba(255, 201, 121, 0.773);
+    height: 100vh;
+    margin: 0;
+    justify-items: center;
+    align-content: center;
+}
+.card
+{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 297px;
+    background-color: rgb(212, 158, 76);
+    box-shadow: 0 2px 5px;
+    overflow: hidden; 
+    justify-content: center;
+    align-items: center;
+}
+.imagen
+{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.conteudo
+{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.nome
+{
+    font-size:  20px;
+    color: antiquewhite;
+
+}
+.descrição
+{
+    font-size: 15px;
+    color: antiquewhite;
+    
+}
+.preço
+{
+    padding: 5px;
+    background-color: rgb(212, 158, 76);
+    color: antiquewhite;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    width: fit-content;
+}
+.botão
+{
+    padding: 10px;
+    background-color: rgb(56, 187, 110);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: center;
+    transition: 0.3s;
+    justify-items: ;
+}
+.botão-button
+{
+    border-radius: 5px;
+    background-color: aqua;
+
+}
+.button-price
+{
+
+
+}
+.card:hover
+{
+    
+
+
+}
+.botão:hover
+{
+    background-color: brown;

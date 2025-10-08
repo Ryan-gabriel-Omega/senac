@@ -1,0 +1,27 @@
+body
+{
+    background-image: url(../image/images.jpg);
+    
+}
+
+.text
+{
+ 
+    color: brown;
+
+
+}
+div
+{   
+    background-color: rgb(136, 187, 210);
+    width: 45%;
+    display: inline-block;
+    
+}
+
+h1
+{       
+    text-align: center;
+    text-decoration: underline;
+    tex
+}
