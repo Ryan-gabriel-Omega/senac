@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio 1</title>
+</head>
+
+<body>
+    <script>
+        const idade = [25, 19, 30, 32, 47]
+        const peso = [75, 80, 90, 105, 120]
+        let resultado = 0
+        
+
+        for (let i = 0; i < idade.length; i++) {
+            resultado += idade[i]
+
+        }
+
+        let peso90 = 0
+        for (let i = 0; i < peso.length; i++) {
+            if (peso[i] > 90) {
+                peso90++
+            }
+        }
+
+        let media = resultado / idade.length
+
+        alert(media)
+
+        alert(peso90)
+
+
+
+
+
+    </script>
+</body>
+
+</html>

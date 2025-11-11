@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio 11</title>
+</head>
+
+<body>
+    <script>
+        var salario, salarionovo, valor, aumento
+
+        salario = parseFloat(prompt("Digite o salário do funcionário:"))
+
+      
+        if (salario <= 1000) {
+            valor = 20
+        } else if (salario <= 3000) {
+            valor = 15
+        } else if (salario <= 8000) {
+            valor = 10
+        } else {
+            valor = 5
+        }
+
+        
+        aumento = salario * (valor / 100)
+        salarionovo = salario + aumento
+
+
+        alert("Percentual de aumento: " + valor + "%")
+        alert("Valor do aumento: R$ " + aumento.toFixed(2))
+        alert("Novo salário: R$ " + salarionovo.toFixed(2))
+
+
+    </script>
+
+
+
+</body>
+
+</html>

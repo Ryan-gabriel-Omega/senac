@@ -1,0 +1,8 @@
+let num = document.getElementById(num)
+let list = document.getElementById(form)
+let resultado = document.querySelector(`div#resultado`)
+let valor = []
+
+function adicionar () {
+    if 
+}

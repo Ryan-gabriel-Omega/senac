@@ -1,0 +1,11 @@
+   const div = document.getElementById("div1"); // <-- precisa das aspas!
+
+    div.addEventListener("mouseover", function () {
+        div.style.backgroundColor = "grey";
+    });
+
+    div.addEventListener("mouseout", function () {
+        div.style.backgroundColor = "lightblue"; // volta para a cor original
+    });
+    
+    
