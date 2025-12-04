@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio 2</title>
+
+</head>
+
+<body>
+    <script>
+        var idade, media, soma = 0, contador = 0
+
+        while (true) {
+            idade = parseInt(prompt("digite sua idade"))
+
+            if (idade < 0) {
+                alert("imposivel calcular")
+                break
+            }
+
+            soma = soma + idade
+            contador = contador + 1
+
+            if (contador > 0) {
+                 media = soma / contador
+                alert("A média das idades é: " + media.toFixed(2))
+            } else {
+                alert("Impossível calcular — nenhuma idade válida foi digitada.")
+            }
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio 9</title>
+</head>
+
+<body>
+    <script>
+        var produto, quantidade, valor, total
+
+        produto = parseInt(prompt("escolha o pruduto"))
+        quantidade = parseInt(prompt("escolha a quantidade do produto"))
+
+        if (produto === 1) {
+            valor = 5.00
+        }
+        else if (produto === 2) {
+            valor = 3.50
+        }
+        else if (produto === 3) {
+            valor = 4.80
+        }
+        else if (produto === 4) {
+            valor = 8.90
+        }
+        else if (produto === 5) {
+            valor = 7.32
+        }
+        else {
+            alert("produto nao encontrado")
+            valor = 0
+        }
+
+        if (valor > 0) {
+            total = valor * quantidade
+            alert(`total a pagar: R$ ${total.toFixed(2)}`)
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

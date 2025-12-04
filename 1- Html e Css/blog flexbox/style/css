@@ -131,7 +131,7 @@ header {
 
 }
 
-article {}
+
 
 @media screen and (max-width:800) {
     header {

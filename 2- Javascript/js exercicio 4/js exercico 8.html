@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio 8</title>
+</head>
+
+<body>
+    <script>
+        var escala, temperatura, resultado
+
+         escala = prompt("Digite 'C' para Celsius ou 'F' para Fahrenheit:").toUpperCase();
+         temperatura = parseFloat(prompt("Digite a temperatura:"));
+         
+
+        if (escala === "C") {
+            resultado = (temperatura * 9 / 5) + 32;
+            alert(`A temperatura em Fahrenheit é: ${resultado.toFixed(2)} °F`);
+        } else if (escala === "F") {
+            resultado = (5 / 9) * (temperatura - 32);
+            alert(`A temperatura em Celsius é: ${resultado.toFixed(2)} °C`);
+        } else {
+            alert("Escala inválida! Digite apenas 'C' ou 'F'.");
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

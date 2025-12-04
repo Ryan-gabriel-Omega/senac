@@ -1,0 +1,44 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background-color: grey;
+}
+main{
+    flex: 1 1 ;
+    display: flex;
+    background-color: antiquewhite;
+    padding: 200px;
+    margin: 20px;
+    border-radius: 5px;
+    justify-content: center;
+}
+.div1 {
+    padding: 20px;
+    justify-items: center;
+   
+}
+.div2 { 
+    padding: 20px;
+    justify-items: center;
+   ;
+}
+.div3 {
+    padding: 20px;
+    justify-items: center;
+  
+}
+.div4 {
+    padding: 20px;
+    justify-items: center;
+   ;
+}
+.div5 { 
+    padding: 20px;
+    justify-items: center;
+   
+}
+p {
+    color: antiquewhite;
+}

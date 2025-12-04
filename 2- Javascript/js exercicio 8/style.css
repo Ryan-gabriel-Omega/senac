@@ -1,0 +1,32 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}   
+body{
+    background-color: rgba(121, 113, 113, 0.316);
+}
+#lista{
+    border-radius: 10px;
+    padding: 100px;
+    margin: 90px;
+    background-color: rgb(145, 182, 182);
+    
+}
+header{
+    justify-self: center;
+}
+
+#num{
+    padding: 1px;
+    
+}
+#form{
+    padding: 90px;
+
+}
+
+
+
+
+
+

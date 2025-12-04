@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio 5</title>
+</head>
+
+<body>
+    <script>
+
+        var preco, quantidade, dinheiro, troco, total, faltam
+
+        preco = parseFloat(prompt("Preço unitário do produto:"));
+        quantidade = parseInt(prompt("Quantidade comprada:"));
+        dinheiro = parseFloat(prompt("Dinheiro recebido:"));
+
+
+        total = preco * quantidade;
+
+
+        if (dinheiro >= total) {
+            troco = dinheiro - total;
+            alert("troco = R$ " + troco.toFixed(2));
+        } else {
+            faltam = total - dinheiro;
+            alert("dinheiro insuficiente. faltam R$ " + faltam.toFixed(2) + " reais");
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>
