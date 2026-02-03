@@ -1,4 +1,16 @@
 * {
-    margin: 0px;
+    margin: 2.5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid;
+    text-align: center;
+    padding: 5px;
     
 }
