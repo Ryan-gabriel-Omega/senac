@@ -1,8 +1,12 @@
     <?php
-    $nome = 'ryan';
+    
+    $nome = 'Ryan';
+    $idade = 21;
 
-    $meu 'meu nome ' . $nome
+    $documento = 'Nome: ' . $nome . ' Idade: ' . $idade; 
+    
+    echo $documento;
 
     ?>
 
-    <?=  ?>
+   
