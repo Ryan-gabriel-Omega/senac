@@ -1,0 +1,29 @@
+body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+.container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; text-align: center; }
+
+.grid-matriz {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.celula {
+    height: 60px;
+    background: #ecf0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.ativo {
+    background: #3498db;
+    color: white;
+    transform: scale(1.1);
+}
+
+button { padding: 10px 20px; cursor: pointer; background: #27ae60; color: white; border: none; border-radius: 5px; }
+.console { margin-top: 20px; text-align: left; background: #2c3e50; color: #ecf0f1; padding: 10px; border-radius: 5px; font-family: monospace; height: 120px; overflow-y: auto; }

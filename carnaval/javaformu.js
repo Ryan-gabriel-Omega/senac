@@ -13,18 +13,24 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
     e.preventDefault();
 
     let idade = parseInt(document.getElementById("idade").value);
+
     let sexo = document.querySelector('input[name="sexo"]:checked').value;
+
     let avaliacao = document.querySelector('input[name="avaliacao"]:checked').value;
 
     total++;
     somaIdade += idade;
 
     if (sexo === "masculino") masculino++;
+
     else feminino++;
 
     if (avaliacao === "excelente") excelente++;
+
     else if (avaliacao === "bom") bom++;
+
     else if (avaliacao === "regular") regular++;
+
     else pessimo++;
 
     this.reset();
@@ -40,10 +46,11 @@ function encerrar() {
     let media = (somaIdade / total).toFixed(2);
 
     let percMasc = ((masculino / total) * 100).toFixed(2);
+
     let percFem = ((feminino / total) * 100).toFixed(2);
 
     let percExc = ((excelente / total) * 100).toFixed(2);
-    
+
     let percBom = ((bom / total) * 100).toFixed(2);
 
     let percReg = ((regular / total) * 100).toFixed(2);
