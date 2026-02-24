@@ -1,0 +1,25 @@
+body {
+    background-color: #1c353f;
+    text-align: center;
+    color: white;
+}
+
+input::placeholder {
+    border-radius: 5.5px;
+    color: black;
+    text-align: center;
+}
+
+form {
+    background: #224b58;
+    padding: 20px;
+    width: 325px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+button {
+    border-radius: 6px;
+    width: 70px;
+    cursor: pointer;
+}

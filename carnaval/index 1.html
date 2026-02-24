@@ -2,13 +2,32 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cauculos financeiros</title>
-
+    <title>Calculadora Financeira</title>
+    <link rel="stylesheet" href="stylecalc.css">
 </head>
 <body>
 
-    
-    
+    <div class="container">
+        <h1>Calculadora de Juros Compostos</h1>
+
+        <label>O que deseja calcular</label>
+        <select id="tipoCalculo">
+            <option value="montante">Montante e Juros</option>
+            <option value="capital">Capital</option>
+            <option value="taxa">Taxa de Juros</option>
+            <option value="tempo">Prazo</option>
+        </select>
+
+        <input type="number" id="capital" placeholder="Capital (C)">
+        <input type="number" id="juros" placeholder="Juros (J)">
+        <input type="number" id="taxa" placeholder="Taxa % (i)">
+        <input type="number" id="tempo" placeholder="Tempo (t)">
+
+        <button onclick="calcular()">Calcular</button>
+
+        <div id="resultado"></div>
+    </div>
+
+<script src="stylecalc.css"></script>
 </body>
 </html>

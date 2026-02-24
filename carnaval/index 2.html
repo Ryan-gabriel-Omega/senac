@@ -5,28 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinema</title>
-
+    <link rel="stylesheet" href="styleform.css">
 </head>
 
 <body>
-    <h1>Avatar: Fogo e Cinzas </h1>
-    <br>
-    <p>Qual a sua idade</p>
-    <input type="numero" name="q1" value="1" placeholder="Idade"> Idade
-    <p>Qual o seu sexo</p>
-    <input type="radio" name="q1" value="2"> Masculino
-    <input type="radio" name="q1" value="2"> Feminino
-    <hr>
-    <table>
-    <tbody>
-        <p>O que você achou do filme</p>
-        <td><input type="radio" name="q2" value="1">Excelente</td>
-        <td><input type="radio" name="q2" value="2">Bom</td>
-        <td><input type="radio" name="q2" value="3">Regular</td>
-        <td><input type="radio" name="q2" value="4">Péssimo</td>
-    </tbody>
-    </table>
 
+    <h1>Avatar: Fogo e Cinzas</h1>
+
+    <form id="formulario">
+
+        <p>Qual a sua idade</p>
+
+        <input type="number" id="idade" required>
+
+        <p>Qual o seu sexo</p>
+
+        <input type="radio" name="sexo" value="masculino" required> Masculino
+
+        <input type="radio" name="sexo" value="feminino"> Feminino
+
+        <hr>
+
+        <p>O que você achou do filme</p>
+
+        <input type="radio" name="avaliacao" value="excelente" required> Excelente<br>
+
+        <input type="radio" name="avaliacao" value="bom"> Bom<br>
+
+        <input type="radio" name="avaliacao" value="regular"> Regular<br>
+
+        <input type="radio" name="avaliacao" value="pessimo"> Péssimo<br><br>
+
+
+        <button type="submit">Adicionar</button>
+
+    </form>
+
+    <button onclick="encerrar()">Encerrar</button>
+
+    <div id="resultado"></div>
+
+    <script src="javaformu.js"></script>
 </body>
 
 </html>
