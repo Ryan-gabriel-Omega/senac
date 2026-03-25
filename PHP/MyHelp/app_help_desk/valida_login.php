@@ -1,30 +1,34 @@
 <?php
 session_start();
+require 'config.php';
 
-require "config.php";
+$usuarioAutenticado = false;
 
-$email = $_GET['email'];
+//RECEBENDO OS DADOS VIA MÉTODO GET
+$emailUsuario = $_GET['email'];
+$senhaUsuario = md5($_GET['senha']);
 
-$senha = md5($_GET['senha']);
+//BUSCANDO NO BANCO AS INFORMAÇÕES
+    $sql = "SELECT * FROM usuarios WHERE email='{$emailUsuario}'";
+    $res = $conexao->query($sql);
+    $row = $res->fetch_object();
 
-$sql = "SELECT id_usuario, nome, email, perfil FROM usuarios WHERE email = '$email' AND senha = '$senha'";
+// AUTENTICANDO O USUÁRIO
+    if ($emailUsuario == $row->email && $senhaUsuario == $row->senha) {
+        $usuarioAutenticado = true;
+        $_SESSION['id'] = $row-> id_usuario;
+        $_SESSION['perfil'] = $row->perfil;
+        $_SESSION['nome'] = $row->nome;
+    } else {
+        $usuarioAutenticado = false;
+    }
 
-$res = $conexao->query($sql);
-
-$usuario = $res->fetch_object();
-
-if($usuario){
-
+if($usuarioAutenticado){
+    // VALIDANDO A SESSÃO
     $_SESSION['autenticado'] = 'sim';
-    
-    $_SESSION['id'] = $usuario->id_usuario;
-    
-    $_SESSION['perfil'] = $usuario->perfil;
-
     header('location: home.php');
-
 } else {
-
+    // VALIDANDO A SESSÃO
+    $_SESSION['autenticado'] = 'nao';
     header('location: index.php?login=erro');
 }
-?>
