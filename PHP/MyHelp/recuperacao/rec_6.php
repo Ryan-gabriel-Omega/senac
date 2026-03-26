@@ -40,3 +40,6 @@ if (isset($_POST["nome"])) {
 </body>
 
 </html>
+<br><br>
+
+<?php include 'voltar.php'; ?>

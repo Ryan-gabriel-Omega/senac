@@ -9,6 +9,7 @@ else  {
     echo 'você e menor de idade';
 }
 
-
-
 ?>
+<br><br>
+
+<?php include 'voltar.php'; ?>

@@ -9,3 +9,6 @@ $nome = $_GET["nome"];
   echo "Olá, visitante";
 }
 ?>
+<br><br>
+
+<?php include 'voltar.php'; ?>

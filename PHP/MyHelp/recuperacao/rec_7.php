@@ -32,7 +32,12 @@ if (isset($_POST["nome"])) {
 
         <button type="submit">Enviar</button>
 
-    </form>
+       </form>
+
+       <form form="POST">
+        <button type="submit" name="limpar">limpar nome</button> 
+
+      </form>
 
     <?php
     if (isset($_SESSION["nome"])) {
@@ -45,3 +50,6 @@ if (isset($_POST["nome"])) {
 </body>
 
 </html>
+<br><br>
+
+<?php include 'voltar.php'; ?>
