@@ -7,3 +7,6 @@ $soma = $numero1 + $numero2;
 echo  'a soma de ' . $numero1 . ' + ' . $numero2 . ' é ' . $soma;
 
 ?>
+<br><br>
+
+<?php include 'voltar.php'; ?>

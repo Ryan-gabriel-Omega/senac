@@ -13,3 +13,6 @@ else {
 }
     
 ?>
+<br><br>
+
+<?php include 'voltar.php'; ?>
