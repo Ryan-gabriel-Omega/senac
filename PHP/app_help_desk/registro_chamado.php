@@ -9,7 +9,7 @@
     $statuschamado = 'Aberto';
 
     //Inserção de dados no banco
-    $sql = "INSERT INTO chamados(titulo, categoria, descricao, id_usuario, statuschamado) VALUES('{$titulo}', '{$categoria}', '{$descricao}', '{$id_usuario}', '{$statuschamado}')";
+    $sql = "INSERT INTO 'chamados'(titulo, 'categoria', 'descricao', id_usuario, statuschamado) VALUES('{$titulo}', '{$categoria}', '{$descricao}', '{$id_usuario}', '{$statuschamado}')";
 
     $res = $conexao->query($sql);
 

@@ -103,7 +103,7 @@
                 while ($user = $resusuarios->fetch_object()){
                     if ($user -> id_usuario == $idusuario){
                         print "<td>" . $user -> nome . "</td>";
-                        break; // Adicionado para sair do loop após encontrar o usuário
+                        break;
                     }
                 }
                 print "</tr>";

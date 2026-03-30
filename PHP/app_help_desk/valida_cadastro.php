@@ -1,35 +1,35 @@
 <?php
-    include ('config.php');
-   
-    
-    $sql = "SELECT * FROM usuarios WHERE email = '{$_POST['email']}'";
-    $res = $conexao->query($sql);
+include('config.php');
 
-    if ($res->num_rows > 0) {
-        header('location: cadastro.php?email=erro');
-        exit(); 
-    }   
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: cadastro.php');
+    exit();
+}
 
-    
-    if($_POST['perfil'] === "-- Selecione --")
-    {
-        header('location: cadastro.php?validaperfil=erro');
-    } else {
+$nome = $conexao->real_escape_string($_POST['nome']);
+$email = $conexao->real_escape_string($_POST['email']);
+$senha = md5($_POST['senha']); // para exercícios
+$perfil = $conexao->real_escape_string($_POST['perfil']);
 
-        $nome = $_POST['nome'];
-       
-        $email = $_POST['email'];
-       
-        $senha = md5($_POST['senha']);
-       
-        $perfil = $_POST['perfil'];
+if($perfil === "") {
+    header('Location: cadastro.php?validaperfil=erro');
+    exit();
+}
 
-       
-        $sql = "INSERT INTO usuarios(nome, email, senha, perfil) VALUES('{$nome}', '{$email}', '{$senha}', '{$perfil}')";
-        $res = $conexao->query($sql);
 
-        if($res==true){
-            header('location: index.php?usuario=sucesso');
-        } else { header('location: cadastro.php?usuario=falha');}
-    }
-?>
+$sql_check = "SELECT * FROM usuarios WHERE email='$email'";
+$res = $conexao->query($sql_check);
+
+if($res->num_rows > 0){
+    header('Location: cadastro.php?email=erro');
+    exit();
+}
+
+$sql_insert = "INSERT INTO usuarios(nome,email,senha,perfil) VALUES('$nome','$email','$senha','$perfil')";
+if($conexao->query($sql_insert)){
+    header('Location: index.php?usuario=sucesso');
+    exit();
+} else {
+    header('Location: cadastro.php?usuario=falha');
+    exit();
+}

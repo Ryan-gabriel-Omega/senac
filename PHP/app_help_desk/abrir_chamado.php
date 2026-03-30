@@ -42,7 +42,7 @@ require_once "validador_acesso.php";
                   alert('Chamado cadastrado com sucesso!')
                 </script>
               </div>
-            <?php } else if (isset($_GET['cadastro']) && $_GET['cadastro'] === 'falha'){ ?>
+            <?php } else if (isset($_GET['cadastro']) && $_GET['cadastro'] === 'falha') { ?>
               <div style="color: red;">
                 <script>
                   alert('Erro de inserção de chamado no banco, contate o administrador!')
@@ -56,24 +56,38 @@ require_once "validador_acesso.php";
               <div class="col">
 
 
-                <form action="registra_chamado.php" method="POST">
+                <form action="registro_chamado.php" method="POST">
+
                   <div class="form-group">
+
                     <label>Título</label>
+
                     <input name="titulo" type="text" class="form-control" placeholder="Título" required autofocus>
+
                   </div>
 
                   <div class="form-group">
                     <label>Categoria</label>
                     <select name="categoria" class="form-control" required>
+
                       <option value="" disabled selected>Selecione uma opção!</option>
+
                       <option value="Criação Usuário">Criação Usuário</option>
+
                       <option value="Impressora">Impressora</option>
+
                       <option value="Hardware">Hardware</option>
+
                       <option value="Software">Software</option>
+
                       <option value="Rede">Rede</option>
+
                       <option value="Formatação">Formatação</option>
+
                       <option value="Orçamento">Orçamento</option>
+
                       <option value="Desenvolvimento">Desenvolvimento</option>
+
                       <option value="Outros">Outros</option>
                     </select>
                   </div>

@@ -1,62 +1,68 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <title>App Help Desk</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+  <meta charset="utf-8">
+  <title>App Help Desk - Cadastro</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="icon" href="imagens/logo.png" type="image/x-icon">
-
   <style>
-    .card-login {
-      padding: 30px 0 0 0;
-      width: 350px;
-      margin: 0 auto;
-    }
+    .card-login { padding: 30px 0 0 0; width: 350px; margin: 0 auto; }
   </style>
 </head>
-
 <body>
 
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <img src="../app_help_desk_bd/imagens/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-      App Help Desk
-    </a>
-  </nav>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="../app_help_desk_bd/imagens/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    App Help Desk
+  </a>
+</nav>
 
-  <div class="container">
-    <div class="row">
+<div class="container">
+  <div class="row">
+    <div class="card-login">
+      <div class="card">
+        <div class="card-header">Cadastre-se</div>
+        <div class="card-body">
 
-      <div class="card-login">
-        <div class="card">
-          <div class="card-header">
-            cadastre=se
-          </div>
 
-          <div class="card-body">
-            <form action="cadastro.php" method="GET">
-              
-              <div class="form-group">
-                <img src="imagens/user.png" style="padding-bottom: 15px; width: 200px; margin-left:50px;" alt="Ícone de usuário">
-                <input name="email" type="email" class="form-control" placeholder="E-mail" autofocus>
-              </div>
-              <div class="form-group">
-                <input name="senha" type="password" class="form-control" placeholder="Senha">
-                <div class="text-primary" style="text-align: right;"> 
-                
-                </div>
-              </div>
+          <?php if(isset($_GET['email'])) echo '<div class="alert alert-danger">Email já cadastrado!</div>'; ?>
+          <?php if(isset($_GET['validaperfil'])) echo '<div class="alert alert-warning">Selecione um perfil válido!</div>'; ?>
+          <?php if(isset($_GET['usuario']) && $_GET['usuario']=='falha') echo '<div class="alert alert-danger">Erro ao cadastrar usuário!</div>'; ?>
 
-              <?php
-              ?>
-            
-              <button class="btn btn-lg btn-info btn-block" type="submit">Entrar</button>
-            </form>
-          </div>
+          <form action="valida_cadastro.php" method="POST">
+            <div class="form-group text-center">
+              <img src="imagens/user.png" style="width:200px;" alt="Ícone de usuário">
+            </div>
+
+            <div class="form-group mb-3">
+              <input name="nome" type="text" class="form-control" placeholder="Nome" required autofocus>
+            </div>
+
+            <div class="form-group mb-3">
+              <input name="email" type="email" class="form-control" placeholder="E-mail" required>
+            </div>
+
+            <div class="form-group mb-3">
+              <input name="senha" type="password" class="form-control" placeholder="Senha" required>
+            </div>
+
+            <div class="form-group mb-3">
+              <select name="perfil" class="form-control" required>
+                <option value="">-- Selecione --</option>
+                <option value="usuario">Usuário</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+
+            <button class="btn btn-lg btn-info btn-block" type="submit">Cadastrar</button>
+          </form>
+
         </div>
       </div>
     </div>
-</body>
+  </div>
+</div>
 
+</body>
 </html>
