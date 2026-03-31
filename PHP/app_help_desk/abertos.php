@@ -27,13 +27,13 @@
       text-align: center;
     }
     .status-aberto {
-      background-color: #ff0000; /* Fundo vermelho */
-      color: #ffffff; /* Texto branco */
+      background-color: #ff0000; 
+      color: #ffffff;
       font-weight: bold;
-      width: 200px; /* Aumenta o espaço da coluna */
+      width: 200px;
     }
     .total-chamados {
-      text-align: left; /* Alinha à esquerda */
+      text-align: left;
     }
     @media (max-width: 1000px) {
       .hide-on-small {
@@ -99,7 +99,7 @@
                 
                 $idchamado = $row -> id_chamado;
                 $idusuario = $row -> id_usuario;
-                $resusuarios->data_seek(0); // Reinicia o ponteiro do resultado da consulta de usuários
+                $resusuarios->data_seek(0);
                 while ($user = $resusuarios->fetch_object()){
                     if ($user -> id_usuario == $idusuario){
                         print "<td>" . $user -> nome . "</td>";
