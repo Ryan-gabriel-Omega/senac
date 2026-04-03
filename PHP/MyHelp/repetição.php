@@ -40,8 +40,4 @@ echo '<h2>foreach</h2>';
         }
         echo '<hr>'
 
-
-
-
-
 ?>
