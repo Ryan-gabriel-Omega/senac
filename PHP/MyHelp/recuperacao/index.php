@@ -1,8 +1,15 @@
 <?php
 
-$rec = ["rec_1", "rec_2", "rec_3", "rec_4", "rec_5", "rec_6", "rec_7"];
+$arquivos = scandir(".");
 
-foreach ($rec as $arquivo) {
-    echo "<a href='$arquivo.php'>abrir $arquivo</a><br>";
+foreach ($arquivos as $arquivo) {
+
+    if (
+        strpos($arquivo, "rec_") === 0 &&
+        pathinfo($arquivo, PATHINFO_EXTENSION) == "php"
+    ) {
+        echo "<a href='$arquivo'>📄 $arquivo</a><br>";
+    }
 }
+
 ?>
