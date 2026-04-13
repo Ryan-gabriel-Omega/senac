@@ -1,6 +1,6 @@
 <?php
 class zombis
-{ 
+{
     private $nome = null;
     private $variante = null;
 
@@ -10,8 +10,6 @@ class zombis
             $this->nome = $valor;
         } elseif ($atributo == "variante") {
             $this->variante = $valor;
-        } else {
-            echo "atributo invalido : $atributo<br>";
         }
     }
     public function __get($atributo) { 
@@ -19,11 +17,9 @@ class zombis
         return $this->nome;
     } elseif ($atributo == "variante") {
         return $this->variante;
-    }else {
-        return "atributo nao existe<br>";
-    }    }
+        }
+    }
 }
-
 $z = new zombis();
 
 $z->nome = "Striker";
