@@ -1,1 +1,0 @@
-<button onclick="location.href='index.php';">Voltar</button>
