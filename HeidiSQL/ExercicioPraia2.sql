@@ -306,6 +306,7 @@ LAST_INSERT_ID(),
 );
 
 
+
 SELECT * FROM cliente;
 
 SELECT * FROM funcionario;
