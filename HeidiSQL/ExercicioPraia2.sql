@@ -136,25 +136,25 @@ INSERT INTO equipamento
 ('Cadeiras 04 posições', 100, 3.50),
 ('Guarda Sol P', 40, 2.00),
 ('Guarda Sol G', 60, 3.00),
-('Mesinha', 30, 1.50);
+('Mesinha', 30, 1.50
+);
 
 insert into
-    aluguel (
-        idCliente,
-        idFuncionario,
-        dataHoraRetirada
-    )
+aluguel (
+ idCliente,
+idFuncionario,
+dataHoraRetirada)
 values (11, 1, '2024-12-08');
  
 
 insert into
-    aluguelEquipamento (
-        idEquipamento,
-        idAluguel,
-        valorItem,
-        valorUnitario,
-        qtd
-    )
+aluguelEquipamento (
+idEquipamento,
+idAluguel,
+valorItem,
+valorUnitario,
+qtd
+)
 values (1, LAST_INSERT_ID() , 2.00, 2.00, 1);
  
 
