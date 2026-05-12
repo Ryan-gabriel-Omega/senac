@@ -40,4 +40,6 @@ SELECT nomeEquipamento, qtd
 FROM equipamento
 WHERE qtd > 40;
 
+
+
 SELECT * FROM equipamento;

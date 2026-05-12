@@ -283,10 +283,10 @@ VALUES (
 '2024-11-10 10:00:00',
 '2024-11-10 18:00:00', 
 100.00,
-NULL,
-0,
-NULL,
-1                       
+100.00,
+1,
+'card',
+2                       
 );
  
 
@@ -325,5 +325,5 @@ SELECT * FROM equipamento;
 SELECT * FROM aluguel;
 
 SELECT * FROM aluguelequipamento;
-
+ 
 SHOW DATABASES;
