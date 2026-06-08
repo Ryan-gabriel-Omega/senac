@@ -20,13 +20,13 @@ CREATE TABLE bebidas (
 );
 
 INSERT INTO bebidas (nome, ml, valor) VALUES
-('coca-cola','2000','10.00'),
-('brahma','350','7.00'),
-('keineken','350','6.00'),
-('guaraná','2000','9.00');
+('coca-cola',2000,'10.00'),
+('brahma',350,'7.00'),
+('heineken',350,'6.00'),
+('guaraná',2000,'9.00');
 
 UPDATE bebidas SET alcoolica = 1 WHERE nome = 'brahma';
-UPDATE bebidas SET alcoolica = 1 WHERE nome = 'keineken';
+UPDATE bebidas SET alcoolica = 1 WHERE nome = 'heineken';
 
 ALTER TABLE bebidas ADD alcoolica BOOLEAN DEFAULT 0;
 

@@ -67,4 +67,20 @@ class bebidas
 
         return $stmt;
     }
+    public function add()
+    { 
+        $query = 'INSERT INTO ' . $this->tabela . ' (nome, ml, valor) '.
+        ' VALUES (:nome, :ml, :valor)';
+ 
+        $stmt = $this->db->prepare($query);
+ 
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':ml', $this->ml);
+        $stmt->bindParam(':valor', $this->valor);
+ 
+        if ($stmt->execute()) {
+            return true;
+        }        
+        return false;
+    }
 }
