@@ -26,14 +26,17 @@ try {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             $treinador_arr[] = [
-                "id" => $row['idTreinador'],
+                "idTreinador" => $row['idTreinador'],
                 "nome" => $row['nome'],
-                "idade" => $row['idade']
+                "idade" => $row['idade'],
+                "altura" => $row['altura'],
+                "peso" => $row['peso'],
+                "nivel" => $row['nivel']
             ];
         }
 
         http_response_code(200);
-        echo json_encode($treinador_arr);
+        echo json_encode($treinador_arr, JSON_PRETTY_PRINT);
 
     } else {
 
@@ -46,4 +49,3 @@ try {
     http_response_code(500);
     echo json_encode(["erro" => $e->getMessage()]);
 }
-?>

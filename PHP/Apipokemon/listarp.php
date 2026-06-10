@@ -26,15 +26,24 @@ try {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             $pokemon_arr[] = [
-                "id" => $row['idPokemon'],
+                "idPokemon" => $row['idPokemon'],
                 "nome" => $row['nome'],
                 "tipo" => $row['tipo'],
-                "nivel" => $row['nivel']
+                "nivel" => $row['nivel'],
+                "altura" => $row['altura'],
+                "peso" => $row['peso'],
+                "vida" => $row['vida'],
+                "genero" => $row['genero'],
+                "forca" => $row['forca'],
+                "velocidade" => $row['velocidade'],
+                "defesa" => $row['defesa'],
+                "ataque" => $row['ataque'],
+                "idTreinador" => $row['idTreinador']
             ];
         }
 
         http_response_code(200);
-        echo json_encode($pokemon_arr);
+        echo json_encode($pokemon_arr, JSON_PRETTY_PRINT);
 
     } else {
 
