@@ -83,4 +83,27 @@ class bebidas
         }        
         return false;
     }
+       public function update()
+    {
+
+        $query = 'UPDATE ' . $this->tabela . ' 
+              SET nome = :nome, 
+                  ml = :ml, 
+                  valor = :valor 
+              WHERE idBebidas = :id';
+
+        $stmt = $this->db->prepare($query);
+
+        // Vincular os parâmetros
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':ml', $this->ml);
+        $stmt->bindParam(':valor', $this->valor);
+        $stmt->bindParam(':id', $this->id);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
 }
