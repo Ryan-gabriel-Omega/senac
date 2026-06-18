@@ -66,4 +66,45 @@ class Treinador
 
         return $stmt->execute();
     }
+    public function update()
+    {
+        $query = 'UPDATE ' . $this->tabela . '
+              SET nome = :nome,
+                  idade = :idade,
+                  altura = :altura,
+                  peso = :peso,
+                  nivel = :nivel
+              WHERE idTreinador = :idTreinador';
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':idade', $this->idade);
+        $stmt->bindParam(':altura', $this->altura);
+        $stmt->bindParam(':peso', $this->peso);
+        $stmt->bindParam(':nivel', $this->nivel);
+        $stmt->bindParam(':idTreinador', $this->idTreinador);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+    public function delete()
+    {
+
+        $query = 'DELETE FROM ' . $this->tabela . ' WHERE  idTreinador=:id';
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $this->idTreinador);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

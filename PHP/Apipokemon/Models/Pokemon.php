@@ -17,6 +17,7 @@ class Pokemon
     public $defesa;
     public $ataque;
     public $idTreinador;
+    public $treinador_nome;
 
     private $db;
     private $tabela = "pokemons";
@@ -36,9 +37,11 @@ class Pokemon
 
     public function get()
     {
-        $query = "SELECT * FROM " . $this->tabela . " 
-                  WHERE idPokemon = ? 
-                  LIMIT 1";
+        $query = "SELECT p.*, t.nome AS treinador_nome
+          FROM pokemons p
+          JOIN treinadores t ON p.idTreinador = t.idTreinador
+          WHERE p.idPokemon = ?
+          LIMIT 1";
 
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(1, $this->idPokemon);
@@ -60,6 +63,7 @@ class Pokemon
             $this->defesa = $row['defesa'];
             $this->ataque = $row['ataque'];
             $this->idTreinador = $row['idTreinador'];
+            $this->treinador_nome = $row['treinador_nome'];
         }
     }
 
@@ -87,4 +91,106 @@ class Pokemon
 
         return $stmt->execute();
     }
+    public function update()
+    {
+        $query = 'UPDATE ' . $this->tabela . '
+              SET nome = :nome,
+                  tipo = :tipo,
+                  nivel = :nivel,
+                  altura = :altura,
+                  peso = :peso,
+                  vida = :vida,
+                  genero = :genero,
+                  forca = :forca,
+                  velocidade = :velocidade,
+                  defesa = :defesa,
+                  ataque = :ataque,
+                  idTreinador = :idTreinador
+              WHERE idPokemon = :idPokemon';
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':tipo', $this->tipo);
+        $stmt->bindParam(':nivel', $this->nivel);
+        $stmt->bindParam(':altura', $this->altura);
+        $stmt->bindParam(':peso', $this->peso);
+        $stmt->bindParam(':vida', $this->vida);
+        $stmt->bindParam(':genero', $this->genero);
+        $stmt->bindParam(':forca', $this->forca);
+        $stmt->bindParam(':velocidade', $this->velocidade);
+        $stmt->bindParam(':defesa', $this->defesa);
+        $stmt->bindParam(':ataque', $this->ataque);
+        $stmt->bindParam(':idTreinador', $this->idTreinador);
+        $stmt->bindParam(':idPokemon', $this->idPokemon);
+
+        return $stmt->execute();
+    }
+    public function delete()
+    {
+
+        $query = 'DELETE FROM ' . $this->tabela . ' WHERE  idPokemon=:id';
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $this->idPokemon);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+    public function getPorTreinador()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              WHERE idTreinador = :idTreinador";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':idTreinador', $this->idTreinador);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getMaisVelozes()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              ORDER BY velocidade DESC
+              LIMIT 5";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getMelhoresAtaques()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              ORDER BY ataque DESC
+              LIMIT 5";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getMelhoresDefesas()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              ORDER BY defesa DESC
+              LIMIT 5";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+    
 }
