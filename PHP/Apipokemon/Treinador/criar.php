@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
 
 include_once '..\Config/Database.php';
-include_once '..\Models/Pokemon.php';
+include_once '..\Models/Treinador.php';
 
 use Apipokemon\Config\Database;
 use Apipokemon\Models\Treinador;

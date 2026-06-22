@@ -7,7 +7,7 @@ header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 include_once '..\Config/Database.php';
-include_once '..\Models/Pokemon.php';
+include_once '..\Models/Treinador.php';
 
 use Apipokemon\Config\Database;
 use Apipokemon\Models\Treinador;

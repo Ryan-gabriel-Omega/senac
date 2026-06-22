@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: DELETE');
 
 include_once '..\Config/Database.php';
-include_once '..\Models/Pokemon.php';
+include_once '..Models/Treinador.php';
 
 use Apipokemon\Config\Database;
 use Apipokemon\Models\Treinador;
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 http_response_code(200);
 
                 echo json_encode([
-                    'Mensagem' => 'Treinador deletado com sucesso.'
+                    'Mensagem' => 'Treinador excluído com sucesso.'
                 ]);
 
             } else {

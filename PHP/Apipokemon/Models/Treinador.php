@@ -91,10 +91,28 @@ class Treinador
 
         return false;
     }
+
     public function delete()
     {
 
-        $query = 'DELETE FROM ' . $this->tabela . ' WHERE  idTreinador=:id';
+        $query = "SELECT COUNT(*) as total 
+              FROM pokemons 
+              WHERE idTreinador = :id";
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $this->idTreinador);
+
+        if ($stmt->execute())
+
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($row['total'] > 0) {
+            return false;
+        }
+
+        $query = 'DELETE FROM ' . $this->tabela . ' 
+              WHERE idTreinador = :id';
 
         $stmt = $this->db->prepare($query);
 
@@ -106,5 +124,4 @@ class Treinador
 
         return false;
     }
-
 }
