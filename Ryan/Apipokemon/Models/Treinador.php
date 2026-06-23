@@ -66,9 +66,9 @@ class Treinador
 
         return $stmt->execute();
     }
-      public function update()
-{
-    $query = 'UPDATE ' . $this->tabela . '
+    public function update()
+    {
+        $query = 'UPDATE ' . $this->tabela . '
               SET nome = :nome,
                   idade = :idade,
                   altura = :altura,
@@ -76,19 +76,67 @@ class Treinador
                   nivel = :nivel
               WHERE idTreinador = :idTreinador';
 
-    $stmt = $this->db->prepare($query);
+        $stmt = $this->db->prepare($query);
 
-    $stmt->bindParam(':nome', $this->nome);
-    $stmt->bindParam(':idade', $this->idade);
-    $stmt->bindParam(':altura', $this->altura);
-    $stmt->bindParam(':peso', $this->peso);
-    $stmt->bindParam(':nivel', $this->nivel);
-    $stmt->bindParam(':idTreinador', $this->idTreinador);
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':idade', $this->idade);
+        $stmt->bindParam(':altura', $this->altura);
+        $stmt->bindParam(':peso', $this->peso);
+        $stmt->bindParam(':nivel', $this->nivel);
+        $stmt->bindParam(':idTreinador', $this->idTreinador);
 
-    if ($stmt->execute()) {
-        return true;
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
     }
 
-    return false;
+    public function delete()
+    {
+
+        $query = "SELECT COUNT(*) as total 
+              FROM pokemons 
+              WHERE idTreinador = :id";
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $this->idTreinador);
+
+        if ($stmt->execute())
+
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($row['total'] > 0) {
+            return false;
+        }
+
+        $query = 'DELETE FROM ' . $this->tabela . ' 
+              WHERE idTreinador = :id';
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $this->idTreinador);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function existe($idTreinador)
+    {
+        $query = "SELECT idTreinador
+              FROM treinadores
+              WHERE idTreinador = :idTreinador";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':idTreinador', $idTreinador);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
+    }
+
 }
-}
+?>

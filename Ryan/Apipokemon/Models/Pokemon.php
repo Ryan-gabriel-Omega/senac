@@ -17,7 +17,7 @@ class Pokemon
     public $defesa;
     public $ataque;
     public $idTreinador;
-     public $treinador_nome;
+    public $treinador_nome;
 
     private $db;
     private $tabela = "pokemons";
@@ -125,5 +125,84 @@ class Pokemon
         $stmt->bindParam(':idPokemon', $this->idPokemon);
 
         return $stmt->execute();
+    }
+    public function delete()
+    {
+
+        $query = 'DELETE FROM ' . $this->tabela . ' WHERE  idPokemon=:id';
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $this->idPokemon);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+    public function getPorTreinador()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              WHERE idTreinador = :idTreinador";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':idTreinador', $this->idTreinador);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getMaisVelozes()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              ORDER BY velocidade DESC
+              LIMIT 5";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getMelhoresAtaques()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              ORDER BY ataque DESC
+              LIMIT 5";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getMelhoresDefesas()
+    {
+        $query = "SELECT *
+              FROM " . $this->tabela . "
+              ORDER BY defesa DESC
+              LIMIT 5";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function existe($idPokemon)
+    {
+        $query = "SELECT idPokemon
+              FROM " . $this->tabela . "
+              WHERE idPokemon = :idPokemon";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':idPokemon', $idPokemon);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
     }
 }
