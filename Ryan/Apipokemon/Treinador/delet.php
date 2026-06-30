@@ -4,8 +4,8 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: DELETE');
 
-include_once '..\Config/Database.php';
-include_once '..\Models/Treinador.php';
+include_once '../Config/Database.php';
+include_once '../Models/Treinador.php';
 
 use Apipokemon\Config\Database;
 use Apipokemon\Models\Treinador;
@@ -25,17 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
             $treinador->idTreinador = $data->idTreinador;
 
-            if (!$treinador->existe($treinador->idTreinador)) {
-
-                http_response_code(404);
-
-                echo json_encode([
-                    'Mensagem' => 'Treinador não encontrado.'
-                ]);
-
-                exit;
-            }
-
             if ($treinador->delete()) {
 
                 http_response_code(200);
@@ -43,14 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 echo json_encode([
                     'Mensagem' => 'Treinador excluído com sucesso.'
                 ]);
+
             } else {
 
-                http_response_code(409);
+                http_response_code(404);
 
                 echo json_encode([
-                    'Mensagem' => 'Treinador possui Pokémon sendo treinado e não pode ser excluído.'
+                    'Mensagem' => 'Não foi possível deletar o treinador.'
                 ]);
             }
+
         } else {
 
             http_response_code(400);
@@ -59,19 +50,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 'Mensagem' => 'ID do treinador inválido.'
             ]);
         }
+
     } catch (Exception $e) {
 
         http_response_code(500);
 
         echo json_encode([
-            'Erro' =>  'Erro interno no servidor.'
+            'Erro' => $e->getMessage()
         ]);
     }
+
 } else {
 
     http_response_code(405);
 
     echo json_encode([
-        'Erro' => 'Método não permitido.'
+        'Erro' => 'Método não suportado!'
     ]);
 }

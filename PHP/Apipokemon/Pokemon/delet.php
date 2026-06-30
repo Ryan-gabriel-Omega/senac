@@ -4,8 +4,8 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: DELETE');
 
-include_once '..\Config/Database.php';
-include_once '..\Models/Pokemon.php';
+include_once '../Config/Database.php';
+include_once '../Models/Pokemon.php';
 
 use Apipokemon\Config\Database;
 use Apipokemon\Models\Pokemon;

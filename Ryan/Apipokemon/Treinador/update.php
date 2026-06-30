@@ -1,5 +1,6 @@
 <?php
 
+// Headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: PUT');
@@ -45,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 echo json_encode(
                     array('Mensagem' => 'Treinador atualizado com sucesso')
                 );
+
             } else {
 
                 http_response_code(500);
@@ -53,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                     array('Mensagem' => 'Não foi possível atualizar o treinador')
                 );
             }
+
         } else {
 
             http_response_code(400);
@@ -61,19 +64,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 array('Mensagem' => 'Dados incompletos')
             );
         }
+
     } catch (Exception $e) {
 
-        http_response_code(500);
-
         echo json_encode(
-            array('erro' => 'Erro interno no servidor.')
+            array('erro' => $e->getMessage())
         );
     }
+
 } else {
 
-    http_response_code(405);
+    http_response_code(400);
 
     echo json_encode(
-        array('erro' => 'Método não permitido.')
+        array('erro' => 'Método não suportado!')
     );
 }

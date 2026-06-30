@@ -14,51 +14,38 @@ $db = $database->getConnection();
 
 $treinador = new Treinador($db);
 
+try {
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $stmt = $treinador->getAll();
+    $num = $stmt->rowCount();
 
-    try {
+    if ($num > 0) {
 
-        $stmt = $treinador->getAll();
-        $num = $stmt->rowCount();
+        $treinador_arr = [];
 
-        if ($num > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-            $treinador_arr = [];
-
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-                $treinador_arr[] = [
-                    "idTreinador" => $row['idTreinador'],
-                    "nome" => $row['nome'],
-                    "idade" => $row['idade'],
-                    "altura" => $row['altura'],
-                    "peso" => $row['peso'],
-                    "nivel" => $row['nivel']
-                ];
-            }
-
-            http_response_code(200);
-            echo json_encode($treinador_arr, JSON_PRETTY_PRINT);
-
-        } else {
-
-            http_response_code(404);
-            echo json_encode(["mensagem" => "Nenhum treinador encontrado"]);
+            $treinador_arr[] = [
+                "idTreinador" => $row['idTreinador'],
+                "nome" => $row['nome'],
+                "idade" => $row['idade'],
+                "altura" => $row['altura'],
+                "peso" => $row['peso'],
+                "nivel" => $row['nivel']
+            ];
         }
 
-    } catch (Throwable $e) {
+        http_response_code(200);
+        echo json_encode($treinador_arr, JSON_PRETTY_PRINT);
 
-        http_response_code(500);
-        echo json_encode(["erro" => 'Erro interno no servidor.'
-        ]);
+    } else {
+
+        http_response_code(404);
+        echo json_encode(["mensagem" => "Nenhum treinador encontrado"]);
     }
 
-} else {
+} catch (Throwable $e) {
 
-    http_response_code(405);
-
-    echo json_encode([
-        "mensagem" => "Método não permitido."
-    ]);
+    http_response_code(500);
+    echo json_encode(["erro" => $e->getMessage()]);
 }

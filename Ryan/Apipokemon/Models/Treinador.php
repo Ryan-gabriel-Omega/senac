@@ -124,19 +124,4 @@ class Treinador
 
         return false;
     }
-
-    public function existe($idTreinador)
-    {
-        $query = "SELECT idTreinador
-              FROM treinadores
-              WHERE idTreinador = :idTreinador";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':idTreinador', $idTreinador);
-        $stmt->execute();
-
-        return $stmt->rowCount() > 0;
-    }
-
 }
-?>

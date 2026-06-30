@@ -49,42 +49,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pokemon->ataque = $data->ataque;
             $pokemon->idTreinador = $data->idTreinador;
 
-
             if ($pokemon->add()) {
 
                 http_response_code(201);
-
                 echo json_encode([
                     "Mensagem" => "Pokémon criado com sucesso"
                 ]);
+
             } else {
 
-                http_response_code(500);
-
+                http_response_code(400);
                 echo json_encode([
                     "Erro" => "Não foi possível criar o Pokémon"
                 ]);
             }
+
         } else {
 
             http_response_code(400);
-
             echo json_encode([
                 "Erro" => "Dados incompletos"
             ]);
         }
+
     } catch (Exception $e) {
 
         http_response_code(500);
-
         echo json_encode([
-            "Erro" => "Erro interno no servidor."
+            "Erro" => $e->getMessage()
         ]);
     }
+
 } else {
 
     http_response_code(405);
-
     echo json_encode([
         "Erro" => "Método não suportado"
     ]);

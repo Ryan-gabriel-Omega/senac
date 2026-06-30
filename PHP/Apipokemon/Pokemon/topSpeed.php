@@ -2,8 +2,8 @@
 
 header("Content-Type: application/json; charset=UTF-8");
 
-include_once '..\Config/Database.php';
-include_once '..\Models/Pokemon.php';
+include_once '../Config/Database.php';
+include_once '../Models/Pokemon.php';
 
 use Apipokemon\Config\Database;
 use Apipokemon\Models\Pokemon;

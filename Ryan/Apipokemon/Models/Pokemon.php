@@ -192,17 +192,5 @@ class Pokemon
 
         return $stmt;
     }
-
-    public function existe($idPokemon)
-    {
-        $query = "SELECT idPokemon
-              FROM " . $this->tabela . "
-              WHERE idPokemon = :idPokemon";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':idPokemon', $idPokemon);
-        $stmt->execute();
-
-        return $stmt->rowCount() > 0;
-    }
+    
 }

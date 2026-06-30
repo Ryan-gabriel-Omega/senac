@@ -1,5 +1,5 @@
 <?php
-
+// Headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: DELETE');
@@ -25,17 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
             $pokemon->idPokemon = $data->idPokemon;
 
-            if (!$pokemon->existe($pokemon->idPokemon)) {
-
-                http_response_code(404);
-
-                echo json_encode([
-                    'Mensagem' => 'Pokémon não encontrado.'
-                ]);
-
-                exit;
-            }
-
             if ($pokemon->delete()) {
 
                 http_response_code(200);
@@ -45,16 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                         'Mensagem' => 'Pokémon deletado com sucesso.'
                     )
                 );
+
             } else {
 
-                http_response_code(500);
+                http_response_code(404);
 
                 echo json_encode(
                     array(
-                        'Mensagem' => 'Erro ao deletar o Pokémon.'
+                        'Mensagem' => 'Não foi possível deletar o Pokémon.'
                     )
                 );
             }
+
         } else {
 
             http_response_code(400);
@@ -65,16 +56,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 )
             );
         }
+
     } catch (Exception $e) {
 
         http_response_code(500);
 
         echo json_encode(
             array(
-                'Erro' => 'Erro interno no servidor.'
+                'Erro' => $e->getMessage()
             )
         );
     }
+
 } else {
 
     http_response_code(405);

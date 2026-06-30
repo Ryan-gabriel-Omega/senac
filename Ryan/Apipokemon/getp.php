@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 "velocidade" => $pokemon->velocidade,
                 "defesa" => $pokemon->defesa,
                 "ataque" => $pokemon->ataque,
-               "treinador_nome" => $pokemon->treinador_nome
+                "idTreinador" => $pokemon->idTreinador
             );
 
             http_response_code(200);
