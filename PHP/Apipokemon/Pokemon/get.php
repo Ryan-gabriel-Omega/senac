@@ -18,9 +18,11 @@ $pokemon->idPokemon = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if ($pokemon->idPokemon) {
+    try {
+   
+         if ($pokemon->idPokemon) {
 
-        $pokemon->get();
+            $pokemon->get();
 
         if ($pokemon->nome) {
 
@@ -58,6 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             array("Mensagem" => "ID não informado.")
         );
     }
+
+    } catch (Exception $e) {
+
+    http_response_code(500);
+
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
+}
 
 } else {
 

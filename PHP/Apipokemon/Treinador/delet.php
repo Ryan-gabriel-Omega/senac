@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 http_response_code(404);
 
                 echo json_encode([
-                    'Mensagem' => 'Não foi possível deletar o treinador.'
+                    'Mensagem' => 'Treinador não encontrado ou não pôde ser excluído.'
                 ]);
             }
 
@@ -47,24 +47,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             http_response_code(400);
 
             echo json_encode([
-                'Mensagem' => 'ID do treinador inválido.'
+                'Mensagem' => 'ID do treinador não informado ou inválido.'
             ]);
         }
 
-    } catch (Exception $e) {
+ } catch (Exception $e) {
 
-        http_response_code(500);
+    http_response_code(500);
 
-        echo json_encode([
-            'Erro' => $e->getMessage()
-        ]);
-    }
-
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
+}
 } else {
 
     http_response_code(405);
 
     echo json_encode([
-        'Erro' => 'Método não suportado!'
+        'Mensagem' => 'Método não suportado!'
     ]);
 }

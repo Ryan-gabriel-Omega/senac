@@ -1,0 +1,104 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #1e1e2f;
+    color: white;
+}
+
+
+header {
+    background: #ff1c1c;
+    padding: 20px;
+    text-align: center;
+}
+
+
+section {
+    padding: 20px;
+}
+
+
+#pokedexContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+}
+
+.card-desconhecido {
+    background: #000;
+    color: #555;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    border: 2px dashed #555;
+}
+
+
+.card-desconhecido h3 {
+    color: #888;
+}
+
+
+button {
+    background: #ff1c1c;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+button:hover {
+    background: #cc0000;
+}
+
+
+#detalhesPokemon {
+    background: #2a2a3d;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 100px;
+}
+
+
+@media (min-width: 600px) {
+    #pokedexContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    #pokedexContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    #pokedexContainer {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}

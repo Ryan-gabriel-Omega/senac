@@ -39,14 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 http_response_code(201);
                 echo json_encode([
-                    "Mensagem" => "Treinador criado com sucesso"
+                    "Mensagem" => "Treinador criado com sucesso."
                 ]);
 
             } else {
 
                 http_response_code(400);
                 echo json_encode([
-                    "Erro" => "Não foi possível criar o treinador"
+                    "Mensagem" => "Não foi possível criar o treinador."
                 ]);
             }
 
@@ -54,22 +54,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             http_response_code(400);
             echo json_encode([
-                "Erro" => "Dados incompletos"
+                "Mensagem" => "Dados incompletos."
             ]);
         }
 
-    } catch (Exception $e) {
+} catch (Exception $e) {
 
-        http_response_code(500);
-        echo json_encode([
-            "Erro" => $e->getMessage()
-        ]);
-    }
+    http_response_code(500);
+
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
+}
 
 } else {
 
     http_response_code(405);
     echo json_encode([
-        "Erro" => "Método não suportado"
+        "Mensagem" => "Método não suportado"
     ]);
 }

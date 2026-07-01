@@ -4,7 +4,7 @@ require_once __DIR__ . "/Config/Database.php";
  
 echo "<h1>Testando Conexão com o Banco de Dados</h1>";
  
-$database = new Database();
+$database = new Apipizzaria\Config\Database();
 $conn = $database->getConnection();
  
 if ($conn) {

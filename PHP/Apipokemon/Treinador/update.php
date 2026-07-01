@@ -64,18 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             );
         }
 
-    } catch (Exception $e) {
+} catch (Exception $e) {
 
-        echo json_encode(
-            array('erro' => $e->getMessage())
-        );
-    }
+    http_response_code(500);
+
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
+}
 
 } else {
 
-    http_response_code(400);
+    http_response_code(405);
 
     echo json_encode(
-        array('erro' => 'Método não suportado!')
+        array('Mensagem' => 'Método não suportado.')
     );
 }

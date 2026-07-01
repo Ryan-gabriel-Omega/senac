@@ -48,11 +48,14 @@ try {
     } else {
 
         http_response_code(404);
-        echo json_encode(["mensagem" => "Nenhum Pokémon encontrado"]);
+        echo json_encode(["Mensagem" => "Nenhum Pokémon encontrado."]);
     }
 
-} catch (Throwable $e) {
+} catch (Exception $e) {
 
     http_response_code(500);
-    echo json_encode(["erro" => $e->getMessage()]);
+
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
 }

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 http_response_code(200);
 
                 echo json_encode(
-                    array('Mensagem' => 'Pokemon atualizado com sucesso')
+                    array('Mensagem' => 'Pokemon atualizado com sucesso.')
                 );
 
             } else {
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 http_response_code(500);
 
                 echo json_encode(
-                    array('Mensagem' => 'Não foi possível atualizar o Pokemon')
+                    array('Mensagem' => 'Não foi possível atualizar o Pokemon.')
                 );
             }
 
@@ -74,22 +74,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             http_response_code(400);
 
             echo json_encode(
-                array('Mensagem' => 'Dados incompletos')
+                array('Mensagem' => 'Dados incompletos.')
             );
         }
 
     } catch (Exception $e) {
 
-        echo json_encode(
-            array('erro' => $e->getMessage())
-        );
-    }
+    http_response_code(500);
+
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
+}
 
 } else {
 
-    http_response_code(400);
+    http_response_code(405);
 
     echo json_encode(
-        array('erro' => 'Método não suportado!')
+        array('Mensagem' => 'Método não suportado.')
     );
 }

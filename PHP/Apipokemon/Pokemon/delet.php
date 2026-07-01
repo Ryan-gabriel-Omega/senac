@@ -57,16 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             );
         }
 
-    } catch (Exception $e) {
+} catch (Exception $e) {
 
-        http_response_code(500);
+    http_response_code(500);
 
-        echo json_encode(
-            array(
-                'Erro' => $e->getMessage()
-            )
-        );
-    }
+    echo json_encode(
+        array('Mensagem' => 'Erro interno do servidor.')
+    );
+}
 
 } else {
 
@@ -74,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
     echo json_encode(
         array(
-            'Erro' => 'Método não suportado!'
+            'Mensagem' => 'Método não suportado.'
         )
     );
 }
