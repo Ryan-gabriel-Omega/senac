@@ -1,4 +1,4 @@
-CREATE DATABASE JucaCursos;
+mysqlCREATE DATABASE JucaCursos;
 USE JucaCursos;
 
 
