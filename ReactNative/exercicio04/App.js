@@ -46,6 +46,17 @@ export default function App() {
           </View>
         </View>
 
+          <Text style={styles.titulo}>
+          Produtos
+        </Text>
+        <View style={styles.produtos}>
+          <view styles={styles.card}>
+            source={{
+              uri: 'https://fastly.picsum.photos/id/729/300/200.jpg?hmac=2p2e1hIMMxSOeNMM9Sz07XXEKmGYC45iO6_McEIXVRQ'
+            }}
+          </view>
+        </View>
+
         <Text style={styles.oferta}>
           Oferta do dia
         </Text>
@@ -93,7 +104,7 @@ const styles = StyleSheet.create({
 
   categoria: {
     padding: 15,
-    backgroundColor: '#eee',
+    backgroundColor: '#494949',
     borderRadius: 10,
   },
 
