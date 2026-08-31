@@ -144,6 +144,10 @@ export default function App() {
           
         </Image>
         <Image style={styles.galeriaFotos}
+        source={foto}>
+       
+        </Image>
+        <Image style={styles.galeriaFotos}
         source={foto}
         style={styles.galeriaFotos}
       />
