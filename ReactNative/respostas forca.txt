@@ -1,0 +1,197 @@
+PESQUISA - MÉTODOS JAVASCRIPT
+JOGO DA FORCA
+
+toUpperCase()
+
+Nome: toUpperCase()
+
+Para que serve:
+Serve para transformar todas as letras de um texto em letras maiúsculas.
+
+Em qual tipo de dado pode ser utilizado:
+Pode ser utilizado em dados do tipo String, ou seja, textos.
+
+Qual a diferença entre toUpperCase() e toLowerCase():
+O toUpperCase() transforma as letras em maiúsculas. Já o toLowerCase() transforma as letras em minúsculas.
+
+Exemplo:
+
+let nome = "joao";
+
+console.log(nome.toUpperCase());
+
+Resultado:
+JOAO
+
+split()
+
+Nome: split()
+
+Para que serve:
+Serve para dividir um texto em partes e transformar essas partes em um array.
+
+O que acontece quando usamos split(''):
+Quando usamos split(''), cada letra ou caractere do texto é separado.
+
+Qual a diferença entre split('') e split(' '):
+O split('') separa cada caractere do texto. Já o split(' ') separa o texto sempre que encontra um espaço.
+
+Exemplo:
+
+let palavra = "CASA";
+
+console.log(palavra.split(''));
+
+Resultado:
+["C", "A", "S", "A"]
+
+Outro exemplo:
+
+let frase = "Eu gosto de jogos";
+
+console.log(frase.split(' '));
+
+Resultado:
+["Eu", "gosto", "de", "jogos"]
+
+map()
+
+Nome: map()
+
+Para que serve:
+Serve para percorrer os elementos de um array e criar um novo array com os resultados de uma operação.
+
+Como ele trabalha com arrays:
+O map() passa por cada elemento do array e executa uma função para cada elemento.
+
+O que é o parâmetro recebido pela função:
+O parâmetro representa o elemento atual do array que está sendo analisado.
+
+Exemplo:
+
+let numeros = [1, 2, 3, 4];
+
+let dobro = numeros.map(numero => numero * 2);
+
+console.log(dobro);
+
+Resultado:
+[2, 4, 6, 8]
+
+every()
+
+Nome: every()
+
+Para que serve:
+Serve para verificar se todos os elementos de um array atendem a uma determinada condição.
+
+Qual a diferença entre every() e map():
+O map() cria um novo array com os resultados. Já o every() verifica uma condição e retorna true ou false.
+
+O que ele retorna:
+Retorna true se todos os elementos atenderem à condição. Retorna false se pelo menos um elemento não atender.
+
+Exemplo:
+
+let numeros = [10, 20, 30, 40];
+
+let resultado = numeros.every(numero => numero > 5);
+
+console.log(resultado);
+
+Resultado:
+true
+
+join()
+
+Nome: join()
+
+Para que serve:
+Serve para juntar os elementos de um array e transformar o resultado em uma String.
+
+O que acontece com o array depois de utilizar join():
+O join() cria uma String com os elementos do array. O array original continua sendo um array.
+
+Qual a diferença entre join(' '), join('-') e join(''):
+join(' ') coloca um espaço entre os elementos.
+join('-') coloca um hífen entre os elementos.
+join('') junta os elementos sem nenhum espaço ou símbolo.
+
+Exemplo:
+
+let letras = ["J", "A", "V", "A"];
+
+console.log(letras.join(' '));
+
+Resultado:
+J A V A
+
+console.log(letras.join('-'));
+
+Resultado:
+J-A-V-A
+
+console.log(letras.join(''));
+
+Resultado:
+JAVA
+
+Operador ... (Spread)
+
+Nome: Operador Spread (...)
+
+O que é:
+É um operador representado por três pontos (...), utilizado para espalhar os elementos de um array ou objeto.
+
+Para que serve:
+Pode ser usado para copiar elementos, juntar arrays ou adicionar novos elementos.
+
+O que acontece em:
+
+const novoArray = [...array, novoElemento];
+
+Os elementos do array são copiados para novoArray e o novoElemento é colocado no final.
+
+Exemplo:
+
+const frutas = ["maçã", "banana"];
+
+const novasFrutas = [...frutas, "laranja"];
+
+console.log(novasFrutas);
+
+Resultado:
+["maçã", "banana", "laranja"]
+
+Arrow Function =>
+
+Nome: Arrow Function (=>)
+
+O que é:
+É uma maneira mais curta de criar uma função em JavaScript.
+
+Para que serve:
+Serve para criar funções de uma forma mais simples. É muito utilizada junto com métodos como map() e every().
+
+Qual a diferença entre:
+
+function teste() {
+}
+
+e:
+
+const teste = () => {
+};
+
+As duas formas criam uma função. A primeira utiliza a forma tradicional de declarar uma função. A segunda utiliza uma Arrow Function, que deixa o código mais curto.
+
+Exemplo:
+
+const somar = (a, b) => {
+return a + b;
+};
+
+console.log(somar(5, 3));
+
+Resultado:
+8

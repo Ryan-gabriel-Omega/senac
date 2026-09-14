@@ -10,7 +10,6 @@ import {
 
 export default function App() {
 
-
   const palavra = 'COMPUTADOR';
 
   const [letra, setLetra] = useState('');
@@ -19,9 +18,26 @@ export default function App() {
 
   const [erros, setErros] = useState(0);
 
+  const [pontuacao, setPontuacao] = useState(0);
+
   const [mensagem, setMensagem] = useState(
     'Digite uma letra'
   );
+
+  const calcularPontuacao = (acertou) => {
+
+    if (acertou) {
+      setPontuacao(pontuacao + 10);
+    } else {
+      const novaPontuacao = pontuacao - 2;
+
+      if (novaPontuacao < 0) {
+        setPontuacao(0);
+      } else {
+        setPontuacao(novaPontuacao);
+      }
+    }
+  };
 
   const tentarLetra = () => {
 
@@ -41,10 +57,18 @@ export default function App() {
     setLetrasUsadas(novasLetras);
 
     if (palavra.includes(novaLetra)) {
-      setMensagem('Acertou!');
+
+      setMensagem('Acertou! +10 pontos');
+
+      calcularPontuacao(true);
+
     } else {
-      setMensagem('Errou!');
+
+      setMensagem('Errou! -2 pontos');
+
       setErros(erros + 1);
+
+      calcularPontuacao(false);
     }
 
     setLetra('');
@@ -52,11 +76,9 @@ export default function App() {
 
   const mostrarPalavra = () => {
 
-
     return palavra
       .split('')
       .map((letraPalavra) => {
-
 
         if (letrasUsadas.includes(letraPalavra)) {
           return letraPalavra;
@@ -68,34 +90,28 @@ export default function App() {
       .join(' ');
   };
 
-
   const ganhou = palavra
     .split('')
     .every((letraPalavra) =>
       letrasUsadas.includes(letraPalavra)
     );
 
-
   const perdeu = erros >= 6;
 
   return (
     <View style={styles.container}>
 
-
       <Text style={styles.titulo}>
         JOGO DA FORCA
       </Text>
-
 
       <Text style={styles.palavra}>
         {mostrarPalavra()}
       </Text>
 
-
       <Text style={styles.mensagem}>
         {mensagem}
       </Text>
-
 
       <TextInput
         style={styles.input}
@@ -105,7 +121,6 @@ export default function App() {
         value={letra}
         onChangeText={setLetra}
       />
-
 
       <Pressable
         style={styles.botao}
@@ -117,11 +132,13 @@ export default function App() {
         </Text>
       </Pressable>
 
-
       <Text style={styles.erros}>
         Erros: {erros} / 6
       </Text>
 
+      <Text style={styles.pontuacao}>
+        Pontuação: {pontuacao}
+      </Text>
 
       <Text style={styles.letras}>
         Letras usadas:
@@ -134,6 +151,8 @@ export default function App() {
       {ganhou && (
         <Text style={styles.vitoria}>
           parabéns! você ganhou!
+          {'\n'}
+          Pontuação final: {pontuacao}
         </Text>
       )}
 
@@ -142,6 +161,8 @@ export default function App() {
           você perdeu!
           {'\n'}
           A palavra era: {palavra}
+          {'\n'}
+          Pontuação final: {pontuacao}
         </Text>
       )}
 
@@ -151,6 +172,7 @@ export default function App() {
           onPress={() => {
             setLetrasUsadas([]);
             setErros(0);
+            setPontuacao(0);
             setMensagem('Digite uma letra');
             setLetra('');
           }}
@@ -225,6 +247,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 25
+  },
+
+  pontuacao: {
+    color: '#FFD700',
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 15
   },
 
   letras: {
