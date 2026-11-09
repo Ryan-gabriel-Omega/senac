@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 40,
-    backgroundColor: '#ffe0f5',
+    backgroundColor: '#09599b',
   },
   list: {
     width: '100%',

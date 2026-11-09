@@ -1,23 +1,20 @@
-
 import { StyleSheet, Text, SafeAreaView, View, TextInput, Switch, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../../components/button/Button'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Lembrete } from '../../types/lembretes';
-import { getLembreteById, getLembreteByIdByAPI } from '../../services/lembrete'
-import { lembreteDados } from '../../data/lembreteDados';
- 
+import { getLembreteById, removerLembrete, getLembreteByIdByAPI, atualizarLembrete } from '../../services/lembrete'
 export default function LembreteEditScreen() {
- 
+
     const { id } = useLocalSearchParams();
- 
+
     const idLembrete = parseInt(id as string);
- 
+
     const [lembrete, setLembrete] = useState<Lembrete>();
     const [titulo, setTitulo] = useState<string>('');
     const [corpo, setCorpo] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false);
- 
+
     useEffect(() => {
         async function getLembreteById(idLembrete: number) {
             if (idLembrete) {
@@ -25,10 +22,10 @@ export default function LembreteEditScreen() {
                 setLembrete(dadosLembrete);
             }
         }
- 
+
         getLembreteById(idLembrete);
     }, [idLembrete]);
- 
+
     useEffect(() => {
         if (lembrete) {
             setTitulo(lembrete.tituloLembrete || '');
@@ -36,15 +33,15 @@ export default function LembreteEditScreen() {
             setStatus(lembrete.statusLembrete || false);
         }
     }, [lembrete]);
- 
- 
+
+
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: lembrete?.tituloLembrete }} />
             <View style={styles.lembreteArea}>
- 
+
                 <View style={styles.detailsArea}>
- 
+
                     <Text style={styles.title}>Título</Text>
                     <TextInput
                         style={styles.input}
@@ -78,17 +75,17 @@ export default function LembreteEditScreen() {
                 </View>
             </View>
             <View style={styles.buttonArea}>
-                <Button title="Salvar" onPress={alert} />
-                <Button title="Excluir" onPress={alert} />
+                <Button title="Salvar" onPress={handleLembreteSave} />
+                <Button title="Excluir" onPress={handleLembrereRemove} />
             </View>
         </View>
     )
 }
- 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#ffe0f5"
+        backgroundColor: "#17055a"
     },
     lembreteArea: {
         flex: 1,
@@ -116,7 +113,7 @@ const styles = StyleSheet.create({
         color: "#E67A31",
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: "#e74281",
+        borderColor: "#02eeff",
         borderRadius: 10,
         padding: 20,
         gap: 16,
@@ -125,12 +122,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: "#e74281"
+        color: "#0cc48c"
     },
     description: {
         fontSize: 20
     },
- 
+
     input: {
         width: "100%",
         margin: 12,
@@ -138,7 +135,6 @@ const styles = StyleSheet.create({
         padding: 6
     }
 })
- 
- 
- 
- 
+
+
+

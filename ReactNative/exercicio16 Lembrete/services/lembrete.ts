@@ -46,3 +46,37 @@ if (!response.ok) {
 console.log(response.json());
 return response.json();
 }
+export async function atualizarLembrete(lembrete:Lembrete) {
+    const lembreteUnico =
+    {
+        "LembreteId":lembrete.lembreteId,
+        "TituloLembrete":lembrete.tituloLembrete,
+        "CorpoLembrete":lembrete.corpoLembrete,
+        "StatusLembrete":lembrete.statusLembrete
+    }
+    const response = await fetch(`${URL}/${lembrete.lembreteId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(lembreteUnico),
+    });
+    if (!response.ok) {
+        throw new Error("Erro ao salvar o lembrete");
+    }
+    console.log(response.json);
+    return response.json();    
+}
+export async function removerLembrete(idLembrete:number) {    
+    const response = await fetch(`${URL}/${idLembrete}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },        
+    });
+    if (!response.ok) {
+        throw new Error("Erro ao remover o lembrete");
+    }
+    console.log(response.json);
+    return response.json();    
+}

@@ -31,5 +31,5 @@ export const styles = StyleSheet.create(
     },
     destaque: {
         fontWeight: 'bold',
-        color: "#f14897"
+        color: "#da2727"
     }});
