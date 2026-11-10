@@ -22,30 +22,36 @@ export async function getAllLembretesByAPI(): Promise<Lembrete[]> {
 }
  
 export async function getLembreteByIdByAPI(pId: number): Promise<Lembrete> {
-    const response = await fetch(`${URL}/${pId}`);
+    const response = await fetch(`${URL}${pId}`);
     const json = await response.json();
     console.log(json);
     return json;
 }
 
-export async function criarLembrete(lembrete:Omit<Lembrete, 'lembreteId'>) {
-{
-    "TituloLembrete"; lembrete.tituloLembrete,
-    "CorpoLembrete";lembrete.corpoLembrete,
-    "StatusLembrete"; lembrete.statusLembrete
-}
-const response = await  fetch(URL, {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
+
+export async function criarLembrete(lembrete: Omit<Lembrete, 'lembreteId'>) {
+
+    const lembreteNovo = {
+        "TituloLembrete": lembrete.tituloLembrete,
+        "CorpoLembrete": lembrete.corpoLembrete,
+        "StatusLembrete": lembrete.statusLembrete
+    };
+
+    const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(lembreteNovo)
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao criar o lembrete");
     }
-});
-if (!response.ok) {
-    throw new Error("Error ao criar o lembrete");
-}    
-console.log(response.json());
-return response.json();
+
+    return response.json();
 }
+
 export async function atualizarLembrete(lembrete:Lembrete) {
     const lembreteUnico =
     {
@@ -54,7 +60,7 @@ export async function atualizarLembrete(lembrete:Lembrete) {
         "CorpoLembrete":lembrete.corpoLembrete,
         "StatusLembrete":lembrete.statusLembrete
     }
-    const response = await fetch(`${URL}/${lembrete.lembreteId}`, {
+    const response = await fetch(`${URL}${lembrete.lembreteId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -67,16 +73,22 @@ export async function atualizarLembrete(lembrete:Lembrete) {
     console.log(response.json);
     return response.json();    
 }
-export async function removerLembrete(idLembrete:number) {    
-    const response = await fetch(`${URL}/${idLembrete}`, {
+export async function removerLembrete(idLembrete: number) {
+    const response = await fetch(`${URL}${idLembrete}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        },        
+        },
     });
+
+    const dados = await response.text();
+
+    console.log("Status DELETE:", response.status);
+    console.log("Resposta DELETE:", dados);
+
     if (!response.ok) {
-        throw new Error("Erro ao remover o lembrete");
+        throw new Error(dados || "Erro ao remover o lembrete");
     }
-    console.log(response.json);
-    return response.json();    
+
+    return dados;
 }

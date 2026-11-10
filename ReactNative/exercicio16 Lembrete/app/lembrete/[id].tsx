@@ -34,6 +34,36 @@ export default function LembreteEditScreen() {
         }
     }, [lembrete]);
 
+    async function handleLembreteSave() {
+    try {
+        if (lembrete) {
+            const lembreteAtualizado: Lembrete = {
+                lembreteId: idLembrete,
+                tituloLembrete: titulo,
+                corpoLembrete: corpo,
+                statusLembrete: status
+            };
+
+            await atualizarLembrete(lembreteAtualizado);
+
+            Alert.alert("Sucesso", "Lembrete atualizado!");
+            router.back();
+        }
+    } catch (error) {
+        Alert.alert("Erro", "Não foi possível atualizar o lembrete.");
+    }
+}
+
+async function handleLembrereRemove() {
+    try {
+        await removerLembrete(idLembrete);
+
+        Alert.alert("Sucesso", "Lembrete removido!");
+        router.back();
+    } catch (error) {
+        Alert.alert("Erro", "Não foi possível remover o lembrete.");
+    }
+}
 
     return (
         <View style={styles.container}>
