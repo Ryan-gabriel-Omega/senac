@@ -10,43 +10,48 @@ import { Stack } from 'expo-router';
 import { Button } from '../../components/button/Button'
 import { Lembrete } from '../../types/lembretes';
 import { criarLembrete } from '../../services/lembrete';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function Add() {
- 
+
     const [titulo, setTitulo] = useState<string>('');
     const [corpo, setCorpo] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false);
-   
+    const [dataLimite, setDataLimite] = useState<Date | undefined>(undefined);
+    const [mostrarCalendario, setMostrarCalendario] = useState<boolean>(false);
+    const dataLimiteFormatada = dataLimite
+    ? `${dataLimite.getFullYear()}-${String(dataLimite.getMonth() + 1).padStart(2, '0')}-${String(dataLimite.getDate()).padStart(2, '0')}`
+    : undefined;
 
 
-async function handleLembreteAdd() {
-    console.log(titulo + " " + corpo + " " + status.toString());
+    async function handleLembreteAdd() {
+      console.log(titulo + " " + corpo + " " + status.toString() + " " + dataLimiteFormatada);
 
-    try {
-        const novoLembrete: Omit<Lembrete, 'lembreteId'> = {
-            "tituloLembrete": titulo,
-            "corpoLembrete": corpo,
-            "statusLembrete": status,
-        };
+        try {
+            const novoLembrete: Omit<Lembrete, 'lembreteId'> = {
+                "tituloLembrete": titulo,
+                "corpoLembrete": corpo,
+                "statusLembrete": status,
+                "dataLimite": dataLimiteFormatada,
 
-        await criarLembrete(novoLembrete);
+            };
 
-        alert("Lembrete adicionado com sucesso!");
-    } catch (erro) {
-        console.log("Erro ao adicionar lembrete:", erro);
-        alert("Não foi possível adicionar o lembrete.");
+            await criarLembrete(novoLembrete);
+
+            alert("Lembrete adicionado com sucesso!");
+        } catch (erro) {
+            console.log("Erro ao adicionar lembrete:", erro);
+            alert("Não foi possível adicionar o lembrete.");
+        }
     }
-}
-
-
 
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: "Adicionar Lembrete" }} />
             <View style={styles.lembreteArea}>
- 
+
                 <View style={styles.detailsArea}>
- 
+
                     <Text style={styles.title}>Título</Text>
                     <TextInput
                         style={styles.input}
@@ -60,17 +65,36 @@ async function handleLembreteAdd() {
                         multiline={true}
                         numberOfLines={6}
                         maxLength={60}
-                        // onChangeText={text => onChangeText(text)}
                         onChangeText={setCorpo}
                         style={styles.input}
                         value={corpo}
                     />
+                    <Button
+                        title={dataLimite
+                            ? dataLimite.toLocaleDateString('pt-BR')
+                            : 'Selecionar data limite'
+                        }
+                        onPress={() => setMostrarCalendario(true)}
+                    />
+
+                    {mostrarCalendario && (
+                        <DateTimePicker
+                            value={dataLimite ?? new Date()}
+                            mode="date"
+                            display="default"
+                            onChange={(event, selectedDate) => {
+                                setMostrarCalendario(false);
+
+                                if (event.type === 'set' && selectedDate) {
+                                    setDataLimite(selectedDate);
+                                }
+                            }}
+                        />
+                    )}
                     <View style={styles.switchArea}>
                         <Text>Não Concluída</Text>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
-                            // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                            // ios_backgroundColor="#3e3e3e"
                             onValueChange={setStatus}
                             value={status}
                         />
@@ -82,7 +106,7 @@ async function handleLembreteAdd() {
                 <Button title="Adicionar" onPress={handleLembreteAdd} />
             </View>
         </View>
-        
+
     )
 }
 const styles = StyleSheet.create({
@@ -130,13 +154,12 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 20
     },
- 
+
     input: {
         width: "100%",
         margin: 12,
         borderWidth: 1,
         padding: 6
     }
-})    
+})
 
-    
