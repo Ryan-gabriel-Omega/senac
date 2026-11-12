@@ -1,13 +1,14 @@
+
 import { Pressable, Text, StyleSheet } from "react-native";
- 
+
 type Props = {
   title: string;
   onPress: () => void;
 };
- 
+
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#E67a31",
+    backgroundColor: "#6D4CC3",
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
- 
+
 export function Button({ title, onPress }: Props) {
   return (
     <Pressable onPress={onPress} style={styles.button}>
@@ -28,6 +29,3 @@ export function Button({ title, onPress }: Props) {
     </Pressable>
   );
 }
- 
- 
- 

@@ -1,15 +1,15 @@
-import { Pressable, Image, Text, View, Switch } from "react-native";
+
+import { Pressable, Text, View, Switch } from "react-native";
 import { Link } from "expo-router";
-import { Lembrete } from "../types/lembretes"
+import { Lembrete } from "../types/lembretes";
 import { styles } from "../lembreteitens/lembreteitemstyles";
-
-
 
 type props = {
     lembrete: Lembrete;
+    onAlterarStatus?: (lembrete: Lembrete) => void;
 }
 
-export function LembreteItem({ lembrete }: props) {
+export function LembreteItem({ lembrete, onAlterarStatus }: props) {
 
     function calcularDiasRestantes(dataLimite: string): number {
         const hoje = new Date();
@@ -22,8 +22,6 @@ export function LembreteItem({ lembrete }: props) {
         const diferenca = data.getTime() - hoje.getTime();
 
         return Math.ceil(diferenca / (1000 * 60 * 60 * 24));
-
-
     }
 
     const diasRestantes = lembrete.dataLimite
@@ -42,8 +40,17 @@ export function LembreteItem({ lembrete }: props) {
         }
     }
 
-    return (
+    function alterarStatus(status: boolean) {
+        const lembreteAtualizado: Lembrete = {
+            ...lembrete,
+            statusLembrete: status,
+            dataConclusao: status ? new Date().toISOString() : undefined
+        };
 
+        onAlterarStatus?.(lembreteAtualizado);
+    }
+
+    return (
         <Link href={`/lembrete/${lembrete.lembreteId}`} asChild>
             <Pressable style={styles.pressableContainer}>
                 <View style={styles.textContainer}>
@@ -61,6 +68,7 @@ export function LembreteItem({ lembrete }: props) {
                 <Switch
                     trackColor={{ false: '#767577', true: '#81b0ff' }}
                     value={lembrete.statusLembrete.toString() === '0' ? false : true}
+                    onValueChange={alterarStatus}
                 />
             </Pressable>
         </Link>

@@ -1,3 +1,4 @@
+
 import { StyleSheet, Text, View, Image } from "react-native";
 import { router } from "expo-router";
 import { Button } from "../components/button/Button";
@@ -14,8 +15,8 @@ return (
       style={styles.logo}
       resizeMode="cover"
     />
-    <Text style={styles.textName}>RemindMe App - 2026®</Text>
-    <Text style={styles.textDev}>By Wheverton</Text>
+    <Text style={styles.textName}>Lembretes UC</Text>
+    <Text style={styles.textDev}>Subject 01</Text>
     <Button title="Entrar" onPress={navigate} />
   </View>
 )
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
+    backgroundColor: "#191923",
   },
 
   main: {
@@ -40,11 +42,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 64,
     fontWeight: "bold",
+    color: "#EAEAF0",
   },
 
   subtitle: {
     fontSize: 36,
-    color: "#38434D",
+    color: "#B0B0C0",
   },
 
   logo: {
@@ -58,11 +61,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 8,
+    color: "#EAEAF0",
   },
 
   textDev: {
     fontSize: 16,
-    color: "#38434D",
+    color: "#A78BFA",
     marginBottom: 24,
   },
 });

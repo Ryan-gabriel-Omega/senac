@@ -1,41 +1,73 @@
-import { StyleSheet, FlatList, View } from 'react-native';
+
+import { StyleSheet, FlatList, View, Alert } from 'react-native';
 import { LembreteItem } from '../../lembreteitens/lembreteintem';
-import { getAllLembretes, getAllLembretesByAPI } from '../../services/lembrete';
+import { getAllLembretesByAPI, atualizarLembrete } from '../../services/lembrete';
 import { useEffect, useState } from 'react';
 import { Lembrete } from '../../types/lembretes';
- 
+
 export default function List() {
- const [lembretes, setLembretes] = useState<Lembrete[]>([]);
- 
- useEffect(() => {
-    async function getLembretesAll() {
-      const listaLembretes = await getAllLembretesByAPI();
-      setLembretes(listaLembretes);
+    const [lembretes, setLembretes] = useState<Lembrete[]>([]);
+
+    useEffect(() => {
+        async function getLembretesAll() {
+            try {
+                const listaLembretes = await getAllLembretesByAPI();
+
+                const pendentes = listaLembretes.filter(
+                    item =>
+                        item.statusLembrete === false ||
+                        String(item.statusLembrete) === '0'
+                );
+
+                setLembretes(pendentes);
+            } catch (error) {
+                Alert.alert("Erro", "Não foi possível carregar os lembretes.");
+            }
+        }
+
+        getLembretesAll();
+    }, []);
+
+    async function alterarStatus(lembrete: Lembrete) {
+        try {
+            await atualizarLembrete(lembrete);
+
+            setLembretes(listaAtual =>
+                listaAtual.filter(
+                    item => item.lembreteId !== lembrete.lembreteId
+                )
+            );
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível atualizar o lembrete.");
+        }
     }
-    getLembretesAll();
-  }, [lembretes]);
- 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={lembretes}
-        renderItem={({ item }) => <LembreteItem lembrete={item} />}
-        keyExtractor={(item) => item.lembreteId.toString()}
-        style={styles.list}
-      />
-    </View>
-  );
+
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={lembretes}
+                renderItem={({ item }) => (
+                    <LembreteItem
+                        lembrete={item}
+                        onAlterarStatus={alterarStatus}
+                    />
+                )}
+                keyExtractor={(item) => item.lembreteId.toString()}
+                style={styles.list}
+            />
+        </View>
+    );
 }
- 
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: '#09599b',
-  },
-  list: {
-    width: '100%',
-    padding: 16,
-    fontSize: 14,
-  },
+    container: {
+        flex: 1,
+        paddingTop: 40,
+        backgroundColor: '#191923',
+    },
+    list: {
+        width: '100%',
+        padding: 16,
+        fontSize: 14,
+    },
 });

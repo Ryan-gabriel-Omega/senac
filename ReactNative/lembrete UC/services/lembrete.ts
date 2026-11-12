@@ -1,3 +1,4 @@
+
 import { lembreteDados } from "../data/lembreteDados";
 import { Lembrete } from "../types/lembretes";
  
@@ -34,7 +35,9 @@ export async function criarLembrete(lembrete: Omit<Lembrete, 'lembreteId'>) {
     const lembreteNovo = {
         "TituloLembrete": lembrete.tituloLembrete,
         "CorpoLembrete": lembrete.corpoLembrete,
-        "StatusLembrete": lembrete.statusLembrete
+        "StatusLembrete": lembrete.statusLembrete,
+        "DataLimite": lembrete.dataLimite,
+        "DataConclusao": lembrete.dataConclusao
     };
 
     const response = await fetch(URL, {
@@ -58,7 +61,9 @@ export async function atualizarLembrete(lembrete:Lembrete) {
         "LembreteId":lembrete.lembreteId,
         "TituloLembrete":lembrete.tituloLembrete,
         "CorpoLembrete":lembrete.corpoLembrete,
-        "StatusLembrete":lembrete.statusLembrete
+        "StatusLembrete":lembrete.statusLembrete,
+        "DataLimite": lembrete.dataLimite,
+        "DataConclusao": lembrete.dataConclusao
     }
     const response = await fetch(`${URL}${lembrete.lembreteId}`, {
         method: 'PUT',
@@ -91,4 +96,30 @@ export async function removerLembrete(idLembrete: number) {
     }
 
     return dados;
+}
+
+export async function limparLembretesExpirados() {
+    const lembretes = await getAllLembretesByAPI();
+
+    const agora = Date.now();
+    const doisDias = 2 * 24 * 60 * 60 * 1000;
+
+    for (const lembrete of lembretes) {
+        const concluido =
+            lembrete.statusLembrete === true ||
+            String(lembrete.statusLembrete) === '1';
+
+        if (concluido && lembrete.dataConclusao) {
+            const dataConclusao = new Date(
+                lembrete.dataConclusao
+            ).getTime();
+
+            if (
+                !Number.isNaN(dataConclusao) &&
+                agora - dataConclusao >= doisDias
+            ) {
+                await removerLembrete(lembrete.lembreteId);
+            }
+        }
+    }
 }

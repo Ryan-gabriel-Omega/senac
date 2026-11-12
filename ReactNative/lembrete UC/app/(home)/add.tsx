@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import {
     View,
@@ -19,13 +20,13 @@ export default function Add() {
     const [status, setStatus] = useState<boolean>(false);
     const [dataLimite, setDataLimite] = useState<Date | undefined>(undefined);
     const [mostrarCalendario, setMostrarCalendario] = useState<boolean>(false);
-    const dataLimiteFormatada = dataLimite
-    ? `${dataLimite.getFullYear()}-${String(dataLimite.getMonth() + 1).padStart(2, '0')}-${String(dataLimite.getDate()).padStart(2, '0')}`
-    : undefined;
 
+    const dataLimiteFormatada = dataLimite
+        ? `${dataLimite.getFullYear()}-${String(dataLimite.getMonth() + 1).padStart(2, '0')}-${String(dataLimite.getDate()).padStart(2, '0')}`
+        : undefined;
 
     async function handleLembreteAdd() {
-      console.log(titulo + " " + corpo + " " + status.toString() + " " + dataLimiteFormatada);
+        console.log(titulo + " " + corpo + " " + status.toString() + " " + dataLimiteFormatada);
 
         try {
             const novoLembrete: Omit<Lembrete, 'lembreteId'> = {
@@ -33,7 +34,7 @@ export default function Add() {
                 "corpoLembrete": corpo,
                 "statusLembrete": status,
                 "dataLimite": dataLimiteFormatada,
-
+                "dataConclusao": status ? new Date().toISOString() : undefined
             };
 
             await criarLembrete(novoLembrete);
@@ -92,13 +93,14 @@ export default function Add() {
                         />
                     )}
                     <View style={styles.switchArea}>
-                        <Text>Não Concluída</Text>
+                        <Text style={styles.switchText}>Não Concluída</Text>
                         <Switch
-                            trackColor={{ false: '#767577', true: '#81b0ff' }}
+                            trackColor={{ false: '#555566', true: '#8B6AD9' }}
+                            thumbColor={status ? '#D6C6FF' : '#CCCCCC'}
                             onValueChange={setStatus}
                             value={status}
                         />
-                        <Text>Concluída</Text>
+                        <Text style={styles.switchText}>Concluída</Text>
                     </View>
                 </View>
             </View>
@@ -112,7 +114,7 @@ export default function Add() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#d2e0f9"
+        backgroundColor: "#191923"
     },
     lembreteArea: {
         flex: 1,
@@ -133,33 +135,40 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 32
     },
+    switchText: {
+        color: "#EAEAF0",
+        fontSize: 14
+    },
     detailsArea: {
         width: "100%",
         justifyContent: 'center',
         alignItems: "center",
-        color: "#E67A31",
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: "#4294E7",
+        borderColor: "#514477",
         borderRadius: 10,
         padding: 20,
         gap: 16,
-        backgroundColor: "#fff"
+        backgroundColor: "#252535"
     },
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: "#4294E7"
+        color: "#A78BFA"
     },
     description: {
-        fontSize: 20
+        fontSize: 20,
+        color: "#EAEAF0"
     },
 
     input: {
         width: "100%",
         margin: 12,
         borderWidth: 1,
-        padding: 6
+        borderColor: "#514477",
+        borderRadius: 8,
+        padding: 10,
+        backgroundColor: "#191923",
+        color: "#EAEAF0"
     }
 })
-

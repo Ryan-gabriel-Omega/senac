@@ -3,5 +3,6 @@ export type Lembrete = {
     tituloLembrete:string,
     corpoLembrete:string,
     statusLembrete:boolean,
-    dataLimite?:string    
+    dataLimite?:string,
+    dataConclusao?:string
 }

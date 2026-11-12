@@ -1,9 +1,12 @@
+
 import { StyleSheet, Text, SafeAreaView, View, TextInput, Switch, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../../components/button/Button'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Lembrete } from '../../types/lembretes';
-import { getLembreteById, removerLembrete, getLembreteByIdByAPI, atualizarLembrete } from '../../services/lembrete'
+import { removerLembrete, getLembreteByIdByAPI, atualizarLembrete } from '../../services/lembrete'
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 export default function LembreteEditScreen() {
 
     const { id } = useLocalSearchParams();
@@ -14,6 +17,12 @@ export default function LembreteEditScreen() {
     const [titulo, setTitulo] = useState<string>('');
     const [corpo, setCorpo] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false);
+    const [dataLimite, setDataLimite] = useState<Date | undefined>(undefined);
+    const [mostrarCalendario, setMostrarCalendario] = useState<boolean>(false);
+
+    const dataLimiteFormatada = dataLimite
+        ? `${dataLimite.getFullYear()}-${String(dataLimite.getMonth() + 1).padStart(2, '0')}-${String(dataLimite.getDate()).padStart(2, '0')}`
+        : undefined;
 
     useEffect(() => {
         async function getLembreteById(idLembrete: number) {
@@ -30,40 +39,61 @@ export default function LembreteEditScreen() {
         if (lembrete) {
             setTitulo(lembrete.tituloLembrete || '');
             setCorpo(lembrete.corpoLembrete || '');
-            setStatus(lembrete.statusLembrete || false);
+
+            setStatus(
+                lembrete.statusLembrete === true ||
+                String(lembrete.statusLembrete) === '1'
+            );
+
+            if (lembrete.dataLimite) {
+                const [ano, mes, dia] = lembrete.dataLimite.split('-').map(Number);
+                setDataLimite(new Date(ano, mes - 1, dia));
+            } else {
+                setDataLimite(undefined);
+            }
         }
     }, [lembrete]);
 
     async function handleLembreteSave() {
-    try {
-        if (lembrete) {
-            const lembreteAtualizado: Lembrete = {
-                lembreteId: idLembrete,
-                tituloLembrete: titulo,
-                corpoLembrete: corpo,
-                statusLembrete: status
-            };
+        try {
+            if (lembrete) {
+                const statusAnterior =
+                    lembrete.statusLembrete === true ||
+                    String(lembrete.statusLembrete) === '1';
 
-            await atualizarLembrete(lembreteAtualizado);
+                const lembreteAtualizado: Lembrete = {
+                    lembreteId: idLembrete,
+                    tituloLembrete: titulo,
+                    corpoLembrete: corpo,
+                    statusLembrete: status,
+                    dataLimite: dataLimiteFormatada,
+                    dataConclusao: status
+                        ? (statusAnterior
+                            ? lembrete.dataConclusao
+                            : new Date().toISOString())
+                        : undefined
+                };
 
-            Alert.alert("Sucesso", "Lembrete atualizado!");
-            router.back();
+                await atualizarLembrete(lembreteAtualizado);
+
+                Alert.alert("Sucesso", "Lembrete atualizado!");
+                router.back();
+            }
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível atualizar o lembrete.");
         }
-    } catch (error) {
-        Alert.alert("Erro", "Não foi possível atualizar o lembrete.");
     }
-}
 
-async function handleLembrereRemove() {
-    try {
-        await removerLembrete(idLembrete);
+    async function handleLembrereRemove() {
+        try {
+            await removerLembrete(idLembrete);
 
-        Alert.alert("Sucesso", "Lembrete removido!");
-        router.back();
-    } catch (error) {
-        Alert.alert("Erro", "Não foi possível remover o lembrete.");
+            Alert.alert("Sucesso", "Lembrete removido!");
+            router.back();
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível remover o lembrete.");
+        }
     }
-}
 
     return (
         <View style={styles.container}>
@@ -79,28 +109,50 @@ async function handleLembrereRemove() {
                         value={titulo}
                         textAlign='center'
                     />
+
                     <Text style={styles.description}>Descrição</Text>
                     <TextInput
                         editable={true}
                         multiline={true}
                         numberOfLines={6}
                         maxLength={60}
-                        // onChangeText={text => onChangeText(text)}
                         onChangeText={setCorpo}
                         value={corpo}
                         style={styles.input}
                     />
+
+                    <Button
+                        title={dataLimite
+                            ? dataLimite.toLocaleDateString('pt-BR')
+                            : 'Selecionar data limite'
+                        }
+                        onPress={() => setMostrarCalendario(true)}
+                    />
+
+                    {mostrarCalendario && (
+                        <DateTimePicker
+                            value={dataLimite ?? new Date()}
+                            mode="date"
+                            display="default"
+                            onChange={(event, selectedDate) => {
+                                setMostrarCalendario(false);
+
+                                if (event.type === 'set' && selectedDate) {
+                                    setDataLimite(selectedDate);
+                                }
+                            }}
+                        />
+                    )}
+
                     <View style={styles.switchArea}>
-                        <Text>Não Concluída</Text>
+                        <Text style={styles.switchText}>Não Concluída</Text>
                         <Switch
-                            trackColor={{ false: '#767577', true: '#81b0ff' }}
+                            trackColor={{ false: '#555566', true: '#8B6AD9' }}
+                            thumbColor={status ? '#D6C6FF' : '#CCCCCC'}
                             value={status}
                             onValueChange={setStatus}
-                        // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                        // ios_backgroundColor="#3e3e3e"                        
-                        // value={isEnabled}
                         />
-                        <Text>Concluída</Text>
+                        <Text style={styles.switchText}>Concluída</Text>
                     </View>
                 </View>
             </View>
@@ -115,7 +167,7 @@ async function handleLembrereRemove() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#17055a"
+        backgroundColor: "#191923"
     },
     lembreteArea: {
         flex: 1,
@@ -136,35 +188,40 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 32
     },
+    switchText: {
+        color: "#EAEAF0",
+        fontSize: 14
+    },
     detailsArea: {
         width: "100%",
         justifyContent: 'center',
         alignItems: "center",
-        color: "#E67A31",
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: "#02eeff",
+        borderColor: "#514477",
         borderRadius: 10,
         padding: 20,
         gap: 16,
-        backgroundColor: "#fff"
+        backgroundColor: "#252535"
     },
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: "#0cc48c"
+        color: "#A78BFA"
     },
     description: {
-        fontSize: 20
+        fontSize: 20,
+        color: "#EAEAF0"
     },
 
     input: {
         width: "100%",
         margin: 12,
         borderWidth: 1,
-        padding: 6
+        borderColor: "#514477",
+        borderRadius: 8,
+        padding: 10,
+        backgroundColor: "#191923",
+        color: "#EAEAF0"
     }
 })
-
-
-

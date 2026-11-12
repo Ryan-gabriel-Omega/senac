@@ -1,34 +1,37 @@
 
-import { StyleSheet, Text, SafeAreaView, View, TextInput, Switch, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Switch, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../../../components/button/Button'
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Lembrete } from '../../../types/lembretes';
-import { getLembreteById, getLembreteByIdByAPI } from '../../../services/lembrete'
-import { lembreteDados } from '../../../data/lembreteDados';
- 
+import {
+    getLembreteByIdByAPI,
+    atualizarLembrete,
+    removerLembrete
+} from '../../../services/lembrete'
+
 export default function LembreteEditScreen() {
- 
+
     const { id } = useLocalSearchParams();
- 
+
     const idLembrete = parseInt(id as string);
- 
+
     const [lembrete, setLembrete] = useState<Lembrete>();
     const [titulo, setTitulo] = useState<string>('');
     const [corpo, setCorpo] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false);
- 
+
     useEffect(() => {
-        async function getLembreteById(idLembrete: number) {
+        async function buscarLembrete(idLembrete: number) {
             if (idLembrete) {
                 const dadosLembrete = await getLembreteByIdByAPI(idLembrete);
                 setLembrete(dadosLembrete);
             }
         }
- 
-        getLembreteById(idLembrete);
+
+        buscarLembrete(idLembrete);
     }, [idLembrete]);
- 
+
     useEffect(() => {
         if (lembrete) {
             setTitulo(lembrete.tituloLembrete || '');
@@ -36,59 +39,124 @@ export default function LembreteEditScreen() {
             setStatus(lembrete.statusLembrete || false);
         }
     }, [lembrete]);
- 
- 
+
+    async function salvarLembrete() {
+        if (!titulo.trim() || !corpo.trim()) {
+            Alert.alert('Atenção', 'Preencha o título e a descrição.');
+            return;
+        }
+
+        try {
+            const lembreteAtualizado: Lembrete = {
+                ...lembrete!,
+                lembreteId: idLembrete,
+                tituloLembrete: titulo,
+                corpoLembrete: corpo,
+                statusLembrete: status,
+                dataConclusao: status
+                    ? (lembrete?.statusLembrete
+                        ? lembrete.dataConclusao
+                        : new Date().toISOString())
+                    : undefined
+            };
+
+            await atualizarLembrete(lembreteAtualizado);
+
+            Alert.alert('Sucesso', 'Lembrete atualizado!');
+            router.back();
+
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível atualizar o lembrete.');
+            console.log(error);
+        }
+    }
+
+    function excluirLembrete() {
+        Alert.alert(
+            'Excluir lembrete',
+            'Tem certeza que deseja excluir este lembrete?',
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Excluir',
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            await removerLembrete(idLembrete);
+
+                            Alert.alert('Sucesso', 'Lembrete excluído!');
+                            router.back();
+
+                        } catch (error) {
+                            Alert.alert('Erro', 'Não foi possível excluir o lembrete.');
+                            console.log(error);
+                        }
+                    }
+                }
+            ]
+        );
+    }
+
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: lembrete?.tituloLembrete }} />
+
             <View style={styles.lembreteArea}>
- 
+
                 <View style={styles.detailsArea}>
- 
+
                     <Text style={styles.title}>Título</Text>
+
                     <TextInput
                         style={styles.input}
                         onChangeText={setTitulo}
                         value={titulo}
                         textAlign='center'
                     />
+
                     <Text style={styles.description}>Descrição</Text>
+
                     <TextInput
                         editable={true}
                         multiline={true}
                         numberOfLines={6}
                         maxLength={60}
-                        // onChangeText={text => onChangeText(text)}
                         onChangeText={setCorpo}
                         value={corpo}
                         style={styles.input}
                     />
+
                     <View style={styles.switchArea}>
-                        <Text>Não Concluída</Text>
+                        <Text style={styles.switchText}>Não Concluída</Text>
+
                         <Switch
-                            trackColor={{ false: '#767577', true: '#81b0ff' }}
+                            trackColor={{ false: '#555566', true: '#8B6AD9' }}
+                            thumbColor={status ? '#D6C6FF' : '#CCCCCC'}
                             value={status}
                             onValueChange={setStatus}
-                        // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                        // ios_backgroundColor="#3e3e3e"                        
-                        // value={isEnabled}
                         />
-                        <Text>Concluída</Text>
+
+                        <Text style={styles.switchText}>Concluída</Text>
                     </View>
+
                 </View>
             </View>
+
             <View style={styles.buttonArea}>
-                <Button title="Salvar" onPress={alert} />
-                <Button title="Excluir" onPress={alert} />
+                <Button title="Salvar" onPress={salvarLembrete} />
+                <Button title="Excluir" onPress={excluirLembrete} />
             </View>
         </View>
     )
 }
- 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#17055a"
+        backgroundColor: "#191923"
     },
     lembreteArea: {
         flex: 1,
@@ -109,36 +177,39 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 32
     },
+    switchText: {
+        color: "#EAEAF0",
+        fontSize: 14
+    },
     detailsArea: {
         width: "100%",
         justifyContent: 'center',
         alignItems: "center",
-        color: "#E67A31",
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: "#02eeff",
+        borderColor: "#514477",
         borderRadius: 10,
         padding: 20,
         gap: 16,
-        backgroundColor: "#fff"
+        backgroundColor: "#252535"
     },
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: "#0cc48c"
+        color: "#A78BFA"
     },
     description: {
-        fontSize: 20
+        fontSize: 20,
+        color: "#EAEAF0"
     },
- 
     input: {
         width: "100%",
         margin: 12,
         borderWidth: 1,
-        padding: 6
+        borderColor: "#514477",
+        borderRadius: 8,
+        padding: 10,
+        backgroundColor: "#191923",
+        color: "#EAEAF0"
     }
 })
- 
- 
- 
- 
