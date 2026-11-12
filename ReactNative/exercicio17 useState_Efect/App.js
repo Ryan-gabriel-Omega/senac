@@ -9,31 +9,66 @@ import {
 
 export default function App() {
 
-  // Estados
+
+  const [bateria, setBateria] = useState(75);
+  const [mensagem, setMensagem] = useState('');
 
 
-  // useEffect
+  useEffect(() => {
+    if (bateria <= 20) {
+      setMensagem('Bateria crítica! Conecte o carregador.');
+    } else if (bateria <= 50) {
+      setMensagem('Bateria baixa. Economize energia.');
+    } else if (bateria <= 80) {
+      setMensagem('Bateria em nível adequado.');
+    } else {
+      setMensagem('Bateria carregada.');
+    }
+  }, [bateria]);
 
 
-  // Funções dos botões
+  function diminuirBateria() {
+    setBateria((valorAtual) => Math.max(0, valorAtual - 10));
+  }
 
+  function aumentarBateria() {
+    setBateria((valorAtual) => Math.min(100, valorAtual + 10));
+  }
 
   return (
     <View style={styles.container}>
 
-      {/* Título */}
+
+      <Text style={styles.titulo}>
+        Monitor de Bateria
+      </Text>
 
 
-      {/* Nível da bateria */}
+      <Text style={styles.bateria}>
+        {bateria}%
+      </Text>
 
+      <Text style={styles.mensagem}>
+        {mensagem}
+      </Text>
 
-      {/* Mensagem da bateria */}
+      <Pressable
+        style={styles.botao}
+        onPress={diminuirBateria}
+      >
+        <Text style={styles.textoBotao}>
+          Diminuir bateria (-10%)
+        </Text>
+      </Pressable>
 
-
-      {/* Botão para diminuir a bateria */}
-
-
-      {/* Botão para aumentar a bateria */}
+      <Pressable
+        style={styles.botao}
+        onPress={aumentarBateria}
+      >
+        <Text style={styles.textoBotao}>
+          Aumentar bateria (+10%)
+        </Text>
+      </Pressable>
 
     </View>
   );
