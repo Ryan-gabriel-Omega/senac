@@ -1,13 +1,15 @@
 
 import { StyleSheet, View, Text, Alert } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
 import { getAllLembretesByAPI } from '../../services/lembrete';
 import { Lembrete } from '../../types/lembretes';
 
 export default function Estatisticas() {
     const [lembretes, setLembretes] = useState<Lembrete[]>([]);
 
-    useEffect(() => {
+    useFocusEffect(
+    useCallback(() => {
         async function carregarLembretes() {
             try {
                 const lista = await getAllLembretesByAPI();
@@ -18,7 +20,8 @@ export default function Estatisticas() {
         }
 
         carregarLembretes();
-    }, []);
+    }, [])
+);
 
     function calcularDiasRestantes(dataLimite: string): number {
         const hoje = new Date();

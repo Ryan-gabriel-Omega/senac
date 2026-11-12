@@ -1,5 +1,6 @@
 
 import { Tabs } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function TabLayout() {
     return (
@@ -21,7 +22,10 @@ export default function TabLayout() {
                 name="list"
                 options={{
                     title: "Lembretes",
-                    headerShown: false
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="list" color={color} size={size} />
+                    ),
                 }}
             />
 
@@ -29,7 +33,11 @@ export default function TabLayout() {
                 name="add"
                 options={{
                     title: "Adicionar",
-                    headerShown: false
+                    tabBarLabel: "Adicionar Lembrete",
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="plus" color={color} size={size} />
+                    ),
                 }}
             />
 
@@ -37,7 +45,10 @@ export default function TabLayout() {
                 name="concluidos"
                 options={{
                     title: "Concluídos",
-                    headerShown: false
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="check-circle" color={color} size={size} />
+                    ),
                 }}
             />
 
@@ -45,7 +56,10 @@ export default function TabLayout() {
                 name="estatisticas"
                 options={{
                     title: "Estatísticas",
-                    headerShown: false
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="bar-chart" color={color} size={size} />
+                    ),
                 }}
             />
         </Tabs>
