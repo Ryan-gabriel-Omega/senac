@@ -1,34 +1,34 @@
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 import { getDatabase } from '../database/database';
 
 export default function Layout() {
-  const [bancoPronto, setBancoPronto] = useState(false);
+    const [pronto, setPronto] = useState(false);
 
-  useEffect(() => {
-    async function iniciarBanco() {
-      try {
-        await getDatabase();
-        console.log('Banco de dados conectado!');
-      } catch (error) {
-        console.error('Erro ao conectar ao banco:', error);
-      } finally {
-        setBancoPronto(true);
-      }
+    useEffect(() => {
+        getDatabase().then(() => setPronto(true));
+    }, []);
+
+    if (!pronto) {
+        return (
+            <View style={{ flex: 1, backgroundColor: '#121212', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ color: 'white' }}>Carregando...</Text>
+            </View>
+        );
     }
 
-    iniciarBanco();
-  }, []);
-
-  if (!bancoPronto) {
-    return null;
-  }
-
-  return (
-    <Stack
-      screenOptions={{
-        headerBackVisible: false,
-      }}
-    />
-  );
+    return (
+        <>
+            <StatusBar style="light" />
+            <Stack
+                screenOptions={{
+                    headerStyle: { backgroundColor: '#1E1E1E' },
+                    headerTintColor: 'white',
+                    contentStyle: { backgroundColor: '#121212' }
+                }}
+            />
+        </>
+    );
 }
